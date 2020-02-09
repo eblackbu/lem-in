@@ -5,6 +5,11 @@ int		main()
 	t_lemin		lemin;
 
 	lemin = validation();
+	/*
+	 * t_path paths = get_solution(lemin); Найти список всех нужных путей.
+	 * print_solution(lemin, paths);
+	 * free_all(lemin, paths);
+	 */
 	return (0);
 }
 

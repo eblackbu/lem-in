@@ -1,6 +1,9 @@
 #include <fcntl.h>
 #include "lem-in.h"
 
+/*
+ * Проверка на муравьев в первой строке
+ */
 long long 		check_ants(void)
 {
 	long long	ants;
@@ -24,12 +27,17 @@ long long 		check_ants(void)
 	return (ants);
 }
 
+/*
+ * Проверяем количество муравьев, записываем в структуру. Проверяем всю карту, если возвращено не NULL,
+ * значит карта валидна на этапе файла (проверено, что нет совпадающих вершин, нет одинаковых связей,
+ * есть начальная и конечная вершина, но не проверено, есть ли путь до конечной вершины)
+ */
 t_lemin		validation(void)
 {
 	t_lemin		lemin;
 
 	lemin.ants = check_ants();
-	lemin.map = check_map();
+	check_map(NULL);
 	if (lemin.map)
 		return(lemin);
 	else
@@ -38,4 +46,3 @@ t_lemin		validation(void)
 		exit(-1);
 	}
 }
-

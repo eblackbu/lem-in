@@ -1,5 +1,8 @@
 #include "lem-in.h"
 
+/*
+ * Проверка, нет ли в списке комнаты с таким же названием, либо с такими же координатами
+ */
 int			check_nameplace(t_roomlist **map, char *name, int x, int y)
 {
 	t_roomlist	*tmp;
@@ -17,6 +20,9 @@ int			check_nameplace(t_roomlist **map, char *name, int x, int y)
 	return (1);
 }
 
+/*
+ * Удаление списка с комнатами
+ */
 void		del_all_rooms(t_roomlist **map)
 {
 	t_roomlist	*tmp;
@@ -35,6 +41,9 @@ void		del_all_rooms(t_roomlist **map)
 	}
 }
 
+/*
+ * Добавление новой комнаты в конец списка
+ */
 void 		add_new_room(t_roomlist **map, char *line, int start_end)
 {
 	int			num;

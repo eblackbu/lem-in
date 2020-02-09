@@ -29,6 +29,7 @@ typedef struct 			s_lemin
 {
 	long long			ants; //сделать atoll потом
 	t_roomlist			*map;
+	int 				**links;
 }						t_lemin;
 
 //initialize_room.c
@@ -50,7 +51,10 @@ int						get_start_end(char *line);
 char					*get_rooms(t_roomlist **map);
 
 //map_checker.c
-t_roomlist				*check_map(void);
+int						**init_links(int count_rooms);
+int						count_rooms(t_roomlist *roomlist);
+void					get_links(t_lemin **lemin, char *linkline);
+void					check_map(t_lemin **lemin);
 
 //validation.c
 long long				check_ants(void);
