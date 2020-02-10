@@ -56,13 +56,15 @@ int			check_links(t_lemin **lemin, char *linkline, int count_rooms)
 	size_t 		len;
 
 	i = 0;
-	while (ft_strcmp(linkline, (*lemin)->links[i][0].name) != '-' && i < count_rooms)
+	if (linkline[0] == '#')
+		return (1);
+	while (i < count_rooms && ft_strcmp(linkline, (*lemin)->links[i][0].name) != '-')
 		i++;
 	if (i == count_rooms)
 		return (0);//первая комната не найдена
 	j = 0;
 	len = ft_strlen((*lemin)->links[i][0].name) + 1;
-	while (ft_strcmp(&linkline[len], (*lemin)->links[j][0].name) && j < count_rooms)
+	while (j < count_rooms && ft_strcmp(&linkline[len], (*lemin)->links[j][0].name))
 		j++;
 	if (j == count_rooms)
 		return (0);//вторая комната не найдена

@@ -54,8 +54,8 @@ void 		add_new_room(t_roomlist **map, char *line, int start_end)
 	t_roomlist	*tmp_last;
 	t_roomlist	*tmp_map;
 
-	num = 0;
 	tmp_last = *map;
+	num = tmp_last ? 1 : 0;
 	while (tmp_last && tmp_last->next)
 	{
 		num++;
