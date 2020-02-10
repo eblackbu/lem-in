@@ -8,7 +8,24 @@ int				is_number(char *line)
 	char 	*val;
 
 	val = ft_itoa(ft_atoi(line));
-	if (ft_strcmp(val, line) == 32)
+	if (ft_strcmp(line, val) == 32)
+	{
+		ft_strdel(&val);
+		return (1);
+	}
+	else
+	{
+		ft_strdel(&val);
+		return (0);
+	}
+}
+
+int				is_second_number(char *line)
+{
+	char 	*val;
+
+	val = ft_itoa(ft_atoi(line));
+	if (!ft_strcmp(line, val))
 	{
 		ft_strdel(&val);
 		return (1);
@@ -48,7 +65,7 @@ int				check_roomline(char *roomline)
 		return (1);
 	if (count_spaces(roomline) == 2)
 	{
-		if (is_number(&ft_strchr(roomline, ' ')[1]) && is_number(&ft_strrchr(roomline, ' ')[1]) && roomline[0] != 'L')
+		if (is_number(&ft_strchr(roomline, ' ')[1]) && is_second_number(&ft_strrchr(roomline, ' ')[1]) && roomline[0] != 'L')
 			return (1);
 	}
 	return (0);
