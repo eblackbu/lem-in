@@ -25,11 +25,18 @@ typedef struct			s_roomlist //возможно совместить с s_room
 	struct s_roomlist	*next;
 }						t_roomlist;
 
+typedef struct			s_graph
+{
+	char 				*name;
+	int					link;
+	int					bfs_lvl;
+}						t_graph;
+
 typedef struct 			s_lemin
 {
-	long long			ants; //сделать atoll потом
+	long long			count_ants; //сделать atoll потом
 	t_roomlist			*map;
-	int 				**links;
+	t_graph 			**links;
 }						t_lemin;
 
 //initialize_room.c
@@ -50,14 +57,19 @@ int						check_roomline(char *roomline);
 int						get_start_end(char *line);
 char					*get_rooms(t_roomlist **map);
 
+//links_checker.c
+t_graph					**set_info_links(t_graph **links, t_roomlist *map, int count_rooms);
+t_graph					**init_links(int count_rooms, t_roomlist *map);
+int						set_links(int i, int j, t_graph **graph);
+int						check_links(t_lemin **lemin, char *linkline, int count_rooms);
+
 //map_checker.c
-int						**init_links(int count_rooms);
-int						count_rooms(t_roomlist *roomlist);
+int						get_count_rooms(t_roomlist *roomlist);
 void					get_links(t_lemin **lemin, char *linkline);
 void					check_map(t_lemin **lemin);
 
 //validation.c
 long long				check_ants(void);
-t_lemin					validation(void);
+t_lemin * validation(void);
 
 #endif

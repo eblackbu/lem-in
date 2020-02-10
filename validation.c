@@ -1,10 +1,9 @@
-#include <fcntl.h>
 #include "lem-in.h"
 
 /*
  * Проверка на муравьев в первой строке
  */
-long long 		check_ants(void)
+long long		check_ants(void)
 {
 	long long	ants;
 	char 		*line;
@@ -32,13 +31,15 @@ long long 		check_ants(void)
  * значит карта валидна на этапе файла (проверено, что нет совпадающих вершин, нет одинаковых связей,
  * есть начальная и конечная вершина, но не проверено, есть ли путь до конечной вершины)
  */
-t_lemin		validation(void)
+t_lemin			*validation(void)
 {
-	t_lemin		lemin;
+	t_lemin		*lemin;
 
-	lemin.ants = check_ants();
-	check_map(NULL);
-	if (lemin.map)
+	if (!(lemin = (t_lemin*)malloc(sizeof(t_lemin))))
+		exit(-1);
+	lemin->count_ants = check_ants();
+	check_map(&lemin);
+	if (lemin->map)
 		return(lemin);
 	else
 		{
