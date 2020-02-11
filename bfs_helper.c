@@ -24,11 +24,6 @@ int			add_children_layers(t_graph ***graph, int count_rooms, int roomnum)
 				(*graph)[roomnum][j].link = -1;
 				(*graph)[j][roomnum].link = 1;
 			}
-			if ((*graph)[j][0].bfs_lvl == (*graph)[roomnum][0].bfs_lvl)
-			{
-				(*graph)[roomnum][j].link = 0;
-				(*graph)[j][roomnum].link = 0;
-			}
 		}
 		j++;
 	}

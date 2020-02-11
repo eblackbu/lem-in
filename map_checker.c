@@ -69,5 +69,4 @@ void			check_map(t_lemin **lemin)
 	count_rm = get_count_rooms((*lemin)->map);
 	print_links((*lemin)->links, count_rm);
 	(*lemin)->links = set_bfs_levels((*lemin)->links, count_rm, 0);
-	print_links((*lemin)->links, count_rm);
 }

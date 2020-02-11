@@ -32,6 +32,13 @@ typedef struct			s_graph
 	int					bfs_lvl;
 }						t_graph;
 
+typedef struct			s_path
+{
+	int					roomnum;
+	char				*name;
+	struct s_path		*next;
+}						t_path;
+
 typedef struct 			s_lemin
 {
 	long long			count_ants; //сделать atoll потом
@@ -68,6 +75,7 @@ int						add_children_layers(t_graph ***graph, int count_rooms, int roomnum);
 t_graph					**set_bfs_levels(t_graph **graph, int count_rooms, int layer);
 
 //map_checker.c
+void					print_links(t_graph **graph, int count_rooms);
 int						get_count_rooms(t_roomlist *roomlist);
 void					get_links(t_lemin **lemin, char *linkline);
 void					check_map(t_lemin **lemin);
@@ -75,5 +83,8 @@ void					check_map(t_lemin **lemin);
 //validation.c
 long long				check_ants(void);
 t_lemin * validation(void);
+
+//algorithm.c
+t_path					**get_paths(t_graph **graph, int count_rooms);
 
 #endif
