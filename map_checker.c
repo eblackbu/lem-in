@@ -26,12 +26,14 @@ void 			print_links(t_graph **graph, int count_rooms)
 		while (j < count_rooms)
 		{
 			if (j == 0)
-				printf("\nname=%s, number=%d bfs=%d", graph[i][j].name, i, graph[i][j].bfs_lvl);
-			printf(" %d", graph[i][j].link);
+				printf("name=%s, number=%d bfs=%10d, ", graph[i][j].name, i, graph[i][j].bfs_lvl);
+			printf(" %2d", graph[i][j].link);
 			j++;
 		}
 		i++;
+		printf("\n");
 	}
+	printf("\n");
 }
 
 // TODO разобраться как хранить данные. Список оставлять опасно, очень долго будем искать и менять информацию о связях.
@@ -49,7 +51,6 @@ void			get_links(t_lemin **lemin, char *linkline)
 		if (get_next_line(0, &linkline) < 1)
 			break ;
 	}
-	print_links((*lemin)->links, count_rm);
 }
 
 /*
@@ -58,10 +59,14 @@ void			get_links(t_lemin **lemin, char *linkline)
  */
 void			check_map(t_lemin **lemin)
 {
+	int				count_rm;
 	t_roomlist		*roomlist;
 	char 			*first_link;
 
 	roomlist = NULL;
 	first_link = get_rooms(&(*lemin)->map);
 	get_links(lemin, first_link);
+	count_rm = get_count_rooms((*lemin)->map);
+	(*lemin)->links = set_bfs_levels((*lemin)->links, count_rm, 0);
+	print_links((*lemin)->links, count_rm);
 }

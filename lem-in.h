@@ -63,6 +63,10 @@ t_graph					**init_links(int count_rooms, t_roomlist *map);
 int						set_links(int i, int j, t_graph **graph);
 int						check_links(t_lemin **lemin, char *linkline, int count_rooms);
 
+//bfs_helper.c
+int						add_children_layers(t_graph ***graph, int count_rooms, int roomnum);
+t_graph					**set_bfs_levels(t_graph **graph, int count_rooms, int layer);
+
 //map_checker.c
 int						get_count_rooms(t_roomlist *roomlist);
 void					get_links(t_lemin **lemin, char *linkline);
