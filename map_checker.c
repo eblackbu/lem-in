@@ -26,7 +26,7 @@ void 			print_links(t_graph **graph, int count_rooms)
 		while (j < count_rooms)
 		{
 			if (j == 0)
-				printf("name=%s, number=%d bfs=%10d, ", graph[i][j].name, i, graph[i][j].bfs_lvl);
+				printf("name=%s, number=%d bfs=%-10d, ", graph[i][j].name, i, graph[i][j].bfs_lvl);
 			printf(" %2d", graph[i][j].link);
 			j++;
 		}
@@ -67,6 +67,7 @@ void			check_map(t_lemin **lemin)
 	first_link = get_rooms(&(*lemin)->map);
 	get_links(lemin, first_link);
 	count_rm = get_count_rooms((*lemin)->map);
+	print_links((*lemin)->links, count_rm);
 	(*lemin)->links = set_bfs_levels((*lemin)->links, count_rm, 0);
 	print_links((*lemin)->links, count_rm);
 }

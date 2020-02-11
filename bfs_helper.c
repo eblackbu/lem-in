@@ -19,8 +19,16 @@ int			add_children_layers(t_graph ***graph, int count_rooms, int roomnum)
 					(*graph)[j][k++].bfs_lvl = (*graph)[roomnum][0].bfs_lvl + 1;
 				flag = 1;
 			}
-			(*graph)[roomnum][j].link = -1;
-			(*graph)[j][roomnum].link = 1;
+			if ((*graph)[j][0].bfs_lvl > (*graph)[roomnum][0].bfs_lvl)
+			{
+				(*graph)[roomnum][j].link = -1;
+				(*graph)[j][roomnum].link = 1;
+			}
+			if ((*graph)[j][0].bfs_lvl == (*graph)[roomnum][0].bfs_lvl)
+			{
+				(*graph)[roomnum][j].link = 0;
+				(*graph)[j][roomnum].link = 0;
+			}
 		}
 		j++;
 	}
@@ -41,7 +49,7 @@ t_graph 	**set_bfs_levels(t_graph **graph, int count_rooms, int layer)
 			 * Если мы нашли вершину с таким уровнем глубины, добавляем ставим всем ее дочерним вершинам +1 от данного уровня глубины
 			 */
 		{
-			flag = add_children_layers(&graph, count_rooms, j);
+			flag += add_children_layers(&graph, count_rooms, j);
 		}
 		j++;
 	}

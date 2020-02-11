@@ -1,9 +1,11 @@
+#include <stdio.h>
 #include "lem-in.h"
 
 int		main()
 {
 	t_lemin		*lemin;
 
+	freopen("/home/eblackbu/CLionProjects/lem-in/cmake-build-debug/test_map", "r", stdin);
 	lemin = validation();
 
 	/*
