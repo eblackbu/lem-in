@@ -82,9 +82,18 @@ void					check_map(t_lemin **lemin);
 
 //validation.c
 long long				check_ants(void);
-t_lemin * validation(void);
+t_lemin					*validation(void);
+
+//algo_helper.c
+int						count_input_links(t_graph **graph, int count_rooms, int i);
+int						count_output_links(t_graph **graph, int count_rooms, int i);
+int						check_all_forks(t_graph **graph, int count_rooms);
 
 //algorithm.c
+t_graph					**del_all_links(t_graph **graph, int count_rooms, int i);
+t_graph					**del_samelayer_links(t_graph **graph, int count_rooms, int i);
+t_graph					**del_unused_links(t_graph **graph, int count_rooms);
+t_graph					**del_dead_ends(t_graph **graph, int count_rooms);
 t_path					**get_paths(t_graph **graph, int count_rooms);
 
 #endif

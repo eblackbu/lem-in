@@ -9,6 +9,7 @@ int		main()
 	paths = NULL;
 	freopen("/home/eblackbu/CLionProjects/lem-in/cmake-build-debug/test_map", "r", stdin);
 	lemin = validation();
+	//TODO проверка, есть ли хоть один путь
 	paths = get_paths(lemin->links, get_count_rooms(lemin->map));
 	/*
 	 * t_path paths = get_solution(lemin); Найти список всех нужных путей. Если 1 муравей, то дейкстра
