@@ -24,7 +24,7 @@ t_graph		**del_output_fork(t_graph **graph, int count_rooms, int roomnum, int ne
 	i = 0;
 	while (i < count_rooms)
 	{
-		if (graph[roomnum][i].link == 1 && i != needed_output)
+		if (graph[roomnum][i].link == -1 && i != needed_output)//TODO аккуратнее
 		{
 			graph[roomnum][i].link = 0;
 			graph[i][roomnum].link = 0;

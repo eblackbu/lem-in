@@ -59,14 +59,8 @@ void			get_links(t_lemin **lemin, char *linkline)
  */
 void			check_map(t_lemin **lemin)
 {
-	int				count_rm;
-	t_roomlist		*roomlist;
 	char 			*first_link;
 
-	roomlist = NULL;
 	first_link = get_rooms(&(*lemin)->map);
 	get_links(lemin, first_link);
-	count_rm = get_count_rooms((*lemin)->map);
-	//print_links((*lemin)->links, count_rm);
-	(*lemin)->links = set_bfs_levels((*lemin)->links, count_rm, 0);
 }

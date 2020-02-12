@@ -35,7 +35,6 @@ typedef struct			s_path
 {
 	int					length;
 	int					*roomnum_path;
-	char				*name;
 }						t_path;
 
 typedef struct 			s_lemin
@@ -97,7 +96,7 @@ t_graph					**del_all_links(t_graph **graph, int count_rooms, int i);
 t_graph					**del_samelayer_links(t_graph **graph, int count_rooms, int i);
 t_graph					**del_unused_links(t_graph **graph, int count_rooms);
 t_graph					**del_dead_ends(t_graph **graph, int count_rooms);
-t_path					**get_paths(t_graph **graph, int count_rooms);
+t_path					**get_solution(t_graph **graph, int count_rooms);
 
 //input_forks.c
 int						is_nice_way(t_graph **graph, int count_rooms, int roomnum);
@@ -107,5 +106,16 @@ t_graph					**find_input_forks(t_graph **graph, int count_rooms);
 
 //output_forks.c
 t_graph					**find_output_forks(t_graph **graph, int count_rooms);
+
+//paths_helper.c
+int						get_first_room(t_graph **graph, int count_rooms);
+int						get_path_length(t_graph **graph, int count_rooms, int next_room);
+int						*get_path_rooms(t_graph **graph, int count_rooms, int next_room, int length);
+
+//get_paths.c
+t_path					**get_paths(t_graph **graph, int count_rooms);
+
+//main.c
+void					print_paths(t_path **paths, int count_paths);
 
 #endif
