@@ -31,10 +31,16 @@ typedef struct			s_graph
 	int					bfs_lvl;
 }						t_graph;
 
+typedef struct			s_ant
+{
+	int					roomnum;
+	long long			ants;
+}						t_ant;
+
 typedef struct			s_path
 {
 	int					length;
-	int					*roomnum_path;
+	t_ant				*roomnum_path;
 }						t_path;
 
 typedef struct 			s_lemin
@@ -42,6 +48,7 @@ typedef struct 			s_lemin
 	long long			count_ants; //сделать atoll потом
 	t_roomlist			*map;
 	t_graph 			**links;
+	t_path				**paths;
 }						t_lemin;
 
 //initialize_room.c
@@ -109,11 +116,15 @@ t_graph					**find_output_forks(t_graph **graph, int count_rooms);
 
 //paths_helper.c
 int						get_first_room(t_graph **graph, int count_rooms);
+int						get_last_room(t_graph **graph, int count_rooms);
 int						get_path_length(t_graph **graph, int count_rooms, int next_room);
-int						*get_path_rooms(t_graph **graph, int count_rooms, int next_room, int length);
+t_ant					*get_path_rooms(t_graph **graph, int count_rooms, int next_room, int length);
 
 //get_paths.c
 t_path					**get_paths(t_graph **graph, int count_rooms);
+
+//print_helper.c
+void					print_solution(t_lemin *lemin);
 
 //main.c
 void					print_paths(t_path **paths, int count_paths);

@@ -9,9 +9,12 @@ void 	print_paths(t_path **paths, int count_paths)
 	while (i < count_paths)
 	{
 		j = 0;
+		printf("Path %d: length: %d ", i, paths[i]->length);
 		while (j < paths[i]->length)
 		{
-			printf("[%d]-", paths[i]->roomnum_path[j++]);
+			int	a = paths[i]->roomnum_path[j].ants;
+			int	b = paths[i]->roomnum_path[j].roomnum;
+			printf("[%d]-", paths[i]->roomnum_path[j++].roomnum);
 		}
 		printf("\n");
 		i++;
@@ -23,7 +26,6 @@ int		main()
 	t_lemin		*lemin;
 	t_path		**paths;
 
-	paths = NULL;
 	freopen("/home/eblackbu/CLionProjects/lem-in/cmake-build-debug/test_map", "r", stdin);
 	lemin = validation();
 
@@ -34,10 +36,9 @@ int		main()
 	 * 		paths = get_digstra();
 	 * 	else
 	 */
-	paths = get_solution(lemin->links, get_count_rooms(lemin->map));
-	/*
-	 * print_solution(lemin, paths);
-	 * free_all(lemin, paths);
+	lemin->paths = get_solution(lemin->links, get_count_rooms(lemin->map));
+	//print_solution(lemin);
+	 /* free_all(lemin, paths);
 	 */
 	return (0);
 }
