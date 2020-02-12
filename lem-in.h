@@ -1,4 +1,3 @@
-
 #ifndef LEM_IN_H
 # define LEM_IN_H
 
@@ -34,9 +33,9 @@ typedef struct			s_graph
 
 typedef struct			s_path
 {
-	int					roomnum;
+	int					length;
+	int					*roomnum_path;
 	char				*name;
-	struct s_path		*next;
 }						t_path;
 
 typedef struct 			s_lemin
@@ -85,8 +84,12 @@ long long				check_ants(void);
 t_lemin					*validation(void);
 
 //algo_helper.c
+int						get_max_layer(t_graph **graph, int count_rooms);
+int 					find_first_input(t_graph **graph, int count_rooms, int roomnum);
+int						find_first_output(t_graph **graph, int count_rooms, int roomnum);
 int						count_input_links(t_graph **graph, int count_rooms, int i);
 int						count_output_links(t_graph **graph, int count_rooms, int i);
+
 int						check_all_forks(t_graph **graph, int count_rooms);
 
 //algorithm.c
@@ -95,5 +98,14 @@ t_graph					**del_samelayer_links(t_graph **graph, int count_rooms, int i);
 t_graph					**del_unused_links(t_graph **graph, int count_rooms);
 t_graph					**del_dead_ends(t_graph **graph, int count_rooms);
 t_path					**get_paths(t_graph **graph, int count_rooms);
+
+//input_forks.c
+int						is_nice_way(t_graph **graph, int count_rooms, int roomnum);
+t_graph					**del_input_fork(t_graph **graph, int count_rooms, int roomnum, int needed_input);
+t_graph					**check_input(t_graph **graph, int count_rooms, int i);
+t_graph					**find_input_forks(t_graph **graph, int count_rooms);
+
+//output_forks.c
+t_graph					**find_output_forks(t_graph **graph, int count_rooms);
 
 #endif

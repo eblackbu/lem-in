@@ -53,7 +53,6 @@ t_graph			**del_unused_links(t_graph **graph, int count_rooms)
 t_graph			**del_dead_ends(t_graph **graph, int count_rooms)
 {
 	int		i;
-	int		j;
 
 	i = 0;
 	while (i < count_rooms)
@@ -72,14 +71,14 @@ t_graph			**del_dead_ends(t_graph **graph, int count_rooms)
 
 t_path			**get_paths(t_graph **graph, int count_rooms)
 {
+	t_path **path = NULL;
+
 	graph = del_unused_links(graph, count_rooms);
-	print_links(graph, count_rooms);
+	//print_links(graph, count_rooms);
 	graph = del_dead_ends(graph, count_rooms);
-	while (check_all_forks(graph, count_rooms))
-	{
-		graph = find_input_forks(graph, count_rooms);//TODO
-		//graph = find_output_forks(graph, count_rooms);
-	}
+	print_links(graph, count_rooms);
+	graph = find_input_forks(graph, count_rooms);//TODO
+	graph = find_output_forks(graph, count_rooms);
+	return (path);
 	//return (set_paths(graph, count_rooms));
 }
-

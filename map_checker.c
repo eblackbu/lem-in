@@ -44,7 +44,7 @@ void			get_links(t_lemin **lemin, char *linkline)
 
 	count_rm = get_count_rooms((*lemin)->map);
 	(*lemin)->links = init_links(count_rm, (*lemin)->map);
-	print_links((*lemin)->links, count_rm);
+	//print_links((*lemin)->links, count_rm);
 	while (check_links(lemin, linkline, count_rm))
 	{
 		ft_strdel(&linkline);
@@ -67,6 +67,6 @@ void			check_map(t_lemin **lemin)
 	first_link = get_rooms(&(*lemin)->map);
 	get_links(lemin, first_link);
 	count_rm = get_count_rooms((*lemin)->map);
-	print_links((*lemin)->links, count_rm);
+	//print_links((*lemin)->links, count_rm);
 	(*lemin)->links = set_bfs_levels((*lemin)->links, count_rm, 0);
 }
