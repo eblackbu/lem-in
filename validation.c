@@ -21,7 +21,7 @@ long long		check_ants(void)
 		ants = 0;
 	ft_strdel(&line);
 	ft_strdel(&number);
-	if (ants < 0)
+	if (ants <= 0)
 		exit(-1);
 	return (ants);
 }

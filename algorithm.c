@@ -20,13 +20,17 @@ t_graph			**del_all_links(t_graph **graph, int count_rooms, int i)
 t_graph			**del_samelayer_links(t_graph **graph, int count_rooms, int i)
 {
 	int		j;
+	int 	len_first;
+	int 	len_second;
 
 	j = 0;
 	while (j < count_rooms)
 	{
 		if (graph[i][j].link && graph[i][0].bfs_lvl == graph[j][0].bfs_lvl)
 		{
-			graph[i][j].link = 0;
+			//len_first = get_path_length(graph, count_rooms, i);
+			//len_second = get_path_length(graph, count_rooms, j);
+			graph[i][j].link = 0; //TODO Найти длину пути до конца, выбрать наименьшую
 			graph[j][i].link = 0;
 		}
 		j++;
@@ -71,9 +75,14 @@ t_graph			**del_dead_ends(t_graph **graph, int count_rooms)
 
 t_path			**get_solution(t_graph **graph, int count_rooms)
 {
-	graph = del_unused_links(graph, count_rooms);
+	//print_links(graph, count_rooms);
+	graph = del_unused_links(graph, count_rooms);//TODO разобраться со связями одного уровня глубины
+	//print_links(graph, count_rooms);
 	graph = del_dead_ends(graph, count_rooms);
+	//print_links(graph, count_rooms);
 	graph = find_input_forks(graph, count_rooms);
+	//print_links(graph, count_rooms);
 	graph = find_output_forks(graph, count_rooms);
+	//print_links(graph, count_rooms);
 	return (get_paths(graph, count_rooms));
 }

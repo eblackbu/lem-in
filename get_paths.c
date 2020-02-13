@@ -21,7 +21,7 @@ t_path		**sort_paths(t_path **paths, int count_paths)//TODO изменить н�
 	flag = 0;
 	while (i < count_paths - 1)
 	{
-		if (paths[i]->length < paths[i + 1]->length)
+		if (paths[i]->length > paths[i + 1]->length)
 		{
 			tmp = paths[i];
 			paths[i] = paths[i + 1];
