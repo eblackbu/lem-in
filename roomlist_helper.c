@@ -25,24 +25,6 @@ int			check_nameplace(t_roomlist **map, char *name, int x, int y)
 }
 
 /*
- * Удаление списка с комнатами
- */
-void		free_all_rooms(t_roomlist **map)
-{
-	t_roomlist	*tmp;
-
-	tmp = (*map)->next ? (*map)->next : NULL;
-	while (*map)
-	{
-		ft_strdel(&(*map)->room->name);
-		free((*map)->room);
-		*map = tmp;
-		if (tmp)
-			tmp = tmp->next;
-	}
-}
-
-/*
  * Добавление новой комнаты в конец списка
  */
 void 		add_new_room(t_roomlist **map, char *line, int start_end)

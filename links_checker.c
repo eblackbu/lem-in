@@ -12,7 +12,7 @@ t_graph			**set_info_links(t_graph **links, t_roomlist *map, int count_rooms)
 		while (j < count_rooms)
 		{
 			if (j == 0)
-				links[tmp->room->number][j].name = ft_strdup(tmp->room->name); //мб можно просто взять указатель
+				links[tmp->room->number][j].name = tmp->room->name; //мб можно просто взять указатель
 			links[tmp->room->number][j].bfs_lvl = tmp->room->bfs_level;
 			j++;
 		}

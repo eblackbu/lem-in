@@ -24,10 +24,12 @@ int		main()
 	t_lemin		*lemin;
 	t_path		**paths;
 
-	freopen("/home/eblackbu/CLionProjects/lem-in/cmake-build-debug/test_map2", "r", stdin);
+	//freopen("/home/eblackbu/CLionProjects/lem-in/cmake-build-debug/test_map2", "r", stdin);
 	lemin = validation();
 
 	//TODO проверка, есть ли хоть один путь. Если муравей один, сделать дейкстру.
+	//TODO сега на проверке связей, исправить. Проходит, если несколько конечных комнат и начальных.
+	//
 	lemin->links = set_bfs_levels(lemin->links, get_count_rooms(lemin->map), 0);
 	/*
 	 * if lemin->count_ants == 1

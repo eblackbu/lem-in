@@ -1,15 +1,29 @@
 #include "lem-in.h"
 
+void		free_all_rooms(t_roomlist **map)
+{
+	t_roomlist	*tmp;
+
+	tmp = (*map)->next ? (*map)->next : NULL;
+	while (*map)
+	{
+		ft_strdel(&(*map)->room->name);
+		free((*map)->room);
+		free(*map);
+		*map = tmp;
+		if (tmp)
+			tmp = tmp->next;
+	}
+}
+
 void 	free_all_links(t_graph ***graph, int count_paths)
 {
 	int 	i;
 
 	i = 0;
 	while (i < count_paths)
-	{
-		ft_strdel(&(*graph)[i][0].name);
 		free((*graph)[i++]);
-	}
+	free(*graph);
 }
 
 void	free_all_paths(t_path **paths, int count_paths)

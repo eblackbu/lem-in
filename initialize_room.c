@@ -8,7 +8,7 @@ char		*get_name(char *roomline)
 	n = 0;
 	while (roomline[n] != ' ')
 		n++;
-	name = ft_strnew(n - 1);
+	name = ft_strnew(n);
 	ft_strncpy(name, roomline, n);
 	return (name);
 }

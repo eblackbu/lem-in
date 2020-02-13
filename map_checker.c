@@ -61,6 +61,7 @@ void			check_map(t_lemin **lemin)
 {
 	char 			*first_link;
 
+	(*lemin)->map = NULL;
 	first_link = get_rooms(&(*lemin)->map);
 	get_links(lemin, first_link);
 }
