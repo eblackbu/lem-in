@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "lem-in.h"
 
-void 	print_paths(t_path **paths, int count_paths)
+void 	print_paths(t_graph **graph, t_path **paths, int count_paths)
 {
 	int i = 0;
 	int j;
@@ -12,9 +12,7 @@ void 	print_paths(t_path **paths, int count_paths)
 		printf("Path %d: length: %d ", i, paths[i]->length);
 		while (j < paths[i]->length)
 		{
-			int	a = paths[i]->roomnum_path[j].ants;
-			int	b = paths[i]->roomnum_path[j].roomnum;
-			printf("[%d]-", paths[i]->roomnum_path[j++].roomnum);
+			printf("[%s]-", graph[paths[i]->roomnum_path[j++].roomnum][0].name);
 		}
 		printf("\n");
 		i++;
@@ -26,7 +24,7 @@ int		main()
 	t_lemin		*lemin;
 	t_path		**paths;
 
-	freopen("/home/eblackbu/CLionProjects/lem-in/cmake-build-debug/test_map", "r", stdin);
+	freopen("/home/eblackbu/CLionProjects/lem-in/cmake-build-debug/test_map2", "r", stdin);
 	lemin = validation();
 
 	//TODO проверка, есть ли хоть один путь. Если муравей один, сделать дейкстру.
@@ -37,9 +35,9 @@ int		main()
 	 * 	else
 	 */
 	lemin->paths = get_solution(lemin->links, get_count_rooms(lemin->map));
-	//print_solution(lemin);
-	 /* free_all(lemin, paths);
-	 */
+	//print_paths(lemin->links, lemin->paths, count_input_links(lemin->links, get_count_rooms(lemin->map), get_last_room(lemin->links, get_count_rooms(lemin->map))));
+	print_solution(lemin, lemin->count_ants);
+	free_all(lemin, get_count_rooms(lemin->map), count_input_links(lemin->links, get_count_rooms(lemin->map), get_last_room(lemin->links, get_count_rooms(lemin->map))));
 	return (0);
 }
 

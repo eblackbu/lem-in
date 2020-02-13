@@ -57,7 +57,7 @@ t_graph			**del_dead_ends(t_graph **graph, int count_rooms)
 	i = 0;
 	while (i < count_rooms)
 	{
-		if (count_output_links(graph, count_rooms, i) == 0 && graph[i][0].bfs_lvl != MAX_INT)
+		if (count_output_links(graph, count_rooms, i) == 0 && graph[i][0].bfs_lvl != -1 && graph[i][0].bfs_lvl != MAX_INT)
 		{
 			graph[i][0].bfs_lvl = -1;
 			graph = del_all_links(graph, count_rooms, i);
@@ -73,8 +73,7 @@ t_path			**get_solution(t_graph **graph, int count_rooms)
 {
 	graph = del_unused_links(graph, count_rooms);
 	graph = del_dead_ends(graph, count_rooms);
-	print_links(graph, count_rooms);
-	graph = find_input_forks(graph, count_rooms);//TODO
+	graph = find_input_forks(graph, count_rooms);
 	graph = find_output_forks(graph, count_rooms);
 	return (get_paths(graph, count_rooms));
 }

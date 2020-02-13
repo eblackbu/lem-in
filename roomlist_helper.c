@@ -14,7 +14,7 @@ int			check_nameplace(t_roomlist **map, char *name, int x, int y)
 		{
 			if (!ft_strcmp(name, tmp->room->name) || (x == tmp->room->x && y == tmp->room->y))
 			{
-				del_all_rooms(map);
+				free_all_rooms(map);
 				ft_putstr_fd("ERROR", 2);
 				exit(-1);
 			}
@@ -27,7 +27,7 @@ int			check_nameplace(t_roomlist **map, char *name, int x, int y)
 /*
  * Удаление списка с комнатами
  */
-void		del_all_rooms(t_roomlist **map)
+void		free_all_rooms(t_roomlist **map)
 {
 	t_roomlist	*tmp;
 
@@ -35,13 +35,10 @@ void		del_all_rooms(t_roomlist **map)
 	while (*map)
 	{
 		ft_strdel(&(*map)->room->name);
-		if ((*map)->room->input_ways)
-			free((*map)->room->input_ways);
-		if ((*map)->room->input_ways)
-			free((*map)->room->output_ways);
 		free((*map)->room);
 		*map = tmp;
-		tmp = tmp->next;
+		if (tmp)
+			tmp = tmp->next;
 	}
 }
 

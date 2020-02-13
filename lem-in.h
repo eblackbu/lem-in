@@ -14,8 +14,6 @@ typedef struct	s_room
 	int			x;
 	int			y;
 	int			bfs_level;
-	int			*input_ways;
-	int			*output_ways;
 }				t_room;
 
 typedef struct			s_roomlist //возможно совместить с s_room
@@ -33,8 +31,9 @@ typedef struct			s_graph
 
 typedef struct			s_ant
 {
+	int					is_ant_here;
 	int					roomnum;
-	long long			ants;
+	long long			antnum;
 }						t_ant;
 
 typedef struct			s_path
@@ -59,7 +58,7 @@ t_room					*init_room(int num, char *roomline, int start_end);
 
 //roomlist_helper.c
 int						check_nameplace(t_roomlist **map, char *name, int x, int y);
-void					del_all_rooms(t_roomlist **map);
+void					free_all_rooms(t_roomlist **map);
 void					add_new_room(t_roomlist **map, char *line, int start_end);
 
 //rooms_checker.c
@@ -124,9 +123,13 @@ t_ant					*get_path_rooms(t_graph **graph, int count_rooms, int next_room, int l
 t_path					**get_paths(t_graph **graph, int count_rooms);
 
 //print_helper.c
-void					print_solution(t_lemin *lemin);
+void					print_solution(t_lemin *lemin, long long count_ants);
 
 //main.c
-void					print_paths(t_path **paths, int count_paths);
+void					print_paths(t_graph **graph, t_path **paths, int count_paths);
 
+/*
+** free_all.c
+*/
+void					free_all(t_lemin *lemin, int count_rooms, int count_paths);
 #endif

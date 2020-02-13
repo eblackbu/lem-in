@@ -52,8 +52,6 @@ t_room		*init_room(int num, char *roomline, int start_end)
 	new_room->name = get_name(roomline);
 	new_room->x = get_coordinate_x(roomline);
 	new_room->y = get_coordinate_y(roomline);
-	new_room->input_ways = NULL;
-	new_room->output_ways = NULL;
 	if (start_end)
 		new_room->bfs_level = (start_end == START_ROOM ? 0 : MAX_INT);
 	else

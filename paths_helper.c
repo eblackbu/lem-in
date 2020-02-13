@@ -24,7 +24,7 @@ t_ant		*get_path_rooms(t_graph **graph, int count_rooms, int next_room, int leng
 	while (i < length)
 	{
 		rooms[i].roomnum = next_room;
-		rooms[i].ants = 0;
+		rooms[i].is_ant_here = 0;
 		if (graph[next_room]->bfs_lvl == MAX_INT)
 			break ;
 		next_room = find_first_output(graph, count_rooms, next_room);

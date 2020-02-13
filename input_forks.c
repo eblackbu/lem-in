@@ -94,8 +94,8 @@ t_graph			**find_input_forks(t_graph **graph, int count_rooms)
 			}
 			i++;
 		}
-		printf("Убраны ветки с %d уровня\n", layer);
-		print_links(graph, count_rooms);
+		//printf("Убраны ветки с %d уровня\n", layer);
+		//print_links(graph, count_rooms);
 		layer++;
 	}
 	return (graph);

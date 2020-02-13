@@ -61,6 +61,5 @@ t_path		**get_paths(t_graph **graph, int count_rooms)
 		}
 		i++;
 	}
-	print_paths(paths, count_paths);
 	return (sort_paths(paths, count_paths));
 }
