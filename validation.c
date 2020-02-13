@@ -42,8 +42,8 @@ t_lemin			*validation(void)
 	if (lemin->map)
 		return(lemin);
 	else
-		{
-		ft_putstr_fd("ERROR\n", 2);// когда писать error?
+	{
+		ft_putendl_fd("ERROR", 2);// когда писать error?
 		exit(-1);
 	}
 }

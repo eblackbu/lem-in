@@ -54,21 +54,28 @@ t_graph			**del_unused_links(t_graph **graph, int count_rooms)
 	return (graph);
 }
 
-t_graph			**del_dead_ends(t_graph **graph, int count_rooms)
+t_graph			**del_dead_ends(t_graph **graph, int count_rooms)//TODO Проблема здесь!!
 {
 	int		i;
+	int 	flag;
 
 	i = 0;
+	flag = 0;
 	while (i < count_rooms)
 	{
 		if (count_output_links(graph, count_rooms, i) == 0 && graph[i][0].bfs_lvl != -1 && graph[i][0].bfs_lvl != MAX_INT)
 		{
 			graph[i][0].bfs_lvl = -1;
 			graph = del_all_links(graph, count_rooms, i);
-			i = 0;
+			flag++;
 		}
 		else
 			i++;
+		if (i == count_rooms && flag)
+		{
+			flag = 0;
+			i = 0;
+		}
 	}
 	return (graph);
 }
@@ -77,11 +84,8 @@ t_path			**get_solution(t_graph **graph, int count_rooms)
 {
 	//print_links(graph, count_rooms);
 	graph = del_unused_links(graph, count_rooms);//TODO разобраться со связями одного уровня глубины
-	//print_links(graph, count_rooms);
 	graph = del_dead_ends(graph, count_rooms);
-	//print_links(graph, count_rooms);
 	graph = find_input_forks(graph, count_rooms);
-	//print_links(graph, count_rooms);
 	graph = find_output_forks(graph, count_rooms);
 	//print_links(graph, count_rooms);
 	return (get_paths(graph, count_rooms));

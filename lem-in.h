@@ -79,8 +79,8 @@ char					*get_rooms(t_roomlist **map);
 */
 t_graph					**set_info_links(t_graph **links, t_roomlist *map, int count_rooms);
 t_graph					**init_links(int count_rooms, t_roomlist *map);
-int						set_links(int i, int j, t_graph **graph);
-int						check_links(t_lemin **lemin, char *linkline, int count_rooms);
+int						set_link(int i, int j, t_graph **graph);
+int						check_link(t_lemin **lemin, char *linkline, int count_rooms);
 
 /*
 ** bfs_helper.c

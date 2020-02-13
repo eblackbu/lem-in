@@ -12,7 +12,7 @@ t_graph			**set_info_links(t_graph **links, t_roomlist *map, int count_rooms)
 		while (j < count_rooms)
 		{
 			if (j == 0)
-				links[tmp->room->number][j].name = tmp->room->name; //мб можно просто взять указатель
+				links[tmp->room->number][j].name = tmp->room->name;
 			links[tmp->room->number][j].bfs_lvl = tmp->room->bfs_level;
 			j++;
 		}
@@ -42,14 +42,19 @@ t_graph			**init_links(int count_rooms, t_roomlist *map)
 	return (set_info_links(links, map, count_rooms));
 }
 
-int 		set_links(int i, int j, t_graph **graph)
+int 			set_link(int i, int j, t_graph **graph)
 {
+	if (graph[i][j].link == 1 || graph[j][i].link == 1 )
+	{
+		ft_putendl_fd("ERROR", 2);
+		exit(-1);
+	}
 	graph[i][j].link = 1;
 	graph[j][i].link = 1;
 	return (1);
 }
 
-int			check_links(t_lemin **lemin, char *linkline, int count_rooms)
+int				check_link(t_lemin **lemin, char *linkline, int count_rooms)
 {
 	int 		i;
 	int 		j;
@@ -61,12 +66,18 @@ int			check_links(t_lemin **lemin, char *linkline, int count_rooms)
 	while (i < count_rooms && ft_strcmp(linkline, (*lemin)->links[i][0].name) != '-')
 		i++;
 	if (i == count_rooms)
-		return (0);//первая комната не найдена
+	{
+		ft_putendl_fd("ERROR", 2);
+		exit(-1);
+	}
 	j = 0;
 	len = ft_strlen((*lemin)->links[i][0].name) + 1;
 	while (j < count_rooms && ft_strcmp(&linkline[len], (*lemin)->links[j][0].name))
 		j++;
 	if (j == count_rooms)
-		return (0);//вторая комната не найдена
-	return (set_links(i, j, (*lemin)->links));
+	{
+		ft_putendl_fd("ERROR", 2);
+		exit(-1);
+	}
+	return (set_link(i, j, (*lemin)->links));
 }
