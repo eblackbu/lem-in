@@ -20,20 +20,23 @@ void 			print_links(t_graph **graph, int count_rooms)
 {
 	int i = 0;
 	int j = 0;
+
+	FILE *fp = fopen("graph_map", "a");
 	while (i < count_rooms)
 	{
 		j = 0;
 		while (j < count_rooms)
 		{
 			if (j == 0)
-				printf("name=%s, number=%d bfs=%-10d, ", graph[i][j].name, i, graph[i][j].bfs_lvl);
-			printf(" %2d", graph[i][j].link);
+				fprintf(fp, "name=%s, number=%d bfs=%-10d, ", graph[i][j].name, i, graph[i][j].bfs_lvl);
+			fprintf(fp, " %2d", graph[i][j].link);
 			j++;
 		}
 		i++;
-		printf("\n");
+		fprintf(fp,"\n");
 	}
-	printf("\n");
+	fprintf(fp, "\n");
+	fclose(fp);
 }
 
 int				check_start_end(t_graph **graph, int count_rooms)

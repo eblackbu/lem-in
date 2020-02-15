@@ -1,6 +1,24 @@
 #include <stdio.h>
 #include "lem-in.h"
 
+#include <stdio.h>
+void 			print_count_links(t_graph **graph, int count_rooms)
+{
+	int i = 0;
+
+	FILE *fp = fopen("graph_map", "a");
+	while (i < count_rooms)
+	{
+		if (count_input_links(graph, count_rooms, i) && !count_output_links(graph, count_rooms, i))
+		{
+			fprintf(fp,"%d, %d - in, %d - out\n", i, count_input_links(graph, count_rooms, i), count_output_links(graph, count_rooms, i));
+		}
+		i++;
+	}
+	fprintf(fp, "\n\n\n\n");
+	fclose(fp);
+}
+
 void 	print_paths(t_graph **graph, t_path **paths, int count_paths)
 {
 	int i = 0;
@@ -24,7 +42,7 @@ int		main()
 	t_lemin		*lemin;
 	t_path		**paths;
 
-	//freopen("/home/eblackbu/CLionProjects/lem-in/cmake-build-debug/test_map3", "r", stdin);
+	//freopen("/home/eblackbu/CLionProjects/lem-in/maps/valid/big/map_big_2", "r", stdin);
 	lemin = validation();
 
 	//TODO проверка, есть ли хоть один путь. Если муравей один, сделать дейкстру.

@@ -24,10 +24,12 @@ int 			find_first_output(t_graph **graph, int count_rooms, int roomnum)
 	while (i < count_rooms)
 	{
 		if (graph[roomnum][i].link == -1)
+		{
 			return (i);
+		}
 		i++;
 	}
-	exit(-1);
+	exit (-1);
 }
 
 int 			find_first_input(t_graph **graph, int count_rooms, int roomnum)
@@ -41,6 +43,7 @@ int 			find_first_input(t_graph **graph, int count_rooms, int roomnum)
 			return (i);
 		i++;
 	}
+	exit (-1);
 }
 
 int				count_input_links(t_graph **graph, int count_rooms, int i)

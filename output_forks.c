@@ -12,7 +12,7 @@ int 		get_path_len(t_graph **graph, int count_rooms, int roomnum)
 		roomnum = find_first_output(graph, count_rooms, roomnum);
 		len++;
 	}
-	return (roomnum);
+	return (len);
 }
 
 t_graph		**del_output_fork(t_graph **graph, int count_rooms, int roomnum, int needed_output)
@@ -29,7 +29,7 @@ t_graph		**del_output_fork(t_graph **graph, int count_rooms, int roomnum, int ne
 			graph[roomnum][i].link = 0;
 			graph[i][roomnum].link = 0;
 			tmp_room = i;
-			while (count_output_links(graph, count_rooms, tmp_room) == 1 && graph[tmp_room][0].bfs_lvl)
+			while (count_output_links(graph, count_rooms, tmp_room) == 1 && graph[tmp_room][0].bfs_lvl != MAX_INT)
 			{
 				tmp_link = find_first_output(graph, count_rooms, tmp_room);
 				graph[tmp_link][tmp_room].link = 0;
@@ -56,10 +56,10 @@ t_graph		**check_output(t_graph **graph, int count_rooms, int roomnum)
 		min_path = MAX_INT;
 		while (j < count_rooms)
 		{
-			if (graph[roomnum][j].link == -1)
+			if (graph[roomnum][j].link == -1 && graph[j][0].bfs_lvl != -1)
 			{
 				tmp_path = get_path_len(graph, count_rooms, j);
-				best_room = (min_path > tmp_path) ? best_room : j;
+				best_room = (min_path > tmp_path) ? j : best_room;
 				min_path = (min_path > tmp_path) ? tmp_path : min_path;
 			}
 			j++;

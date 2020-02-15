@@ -162,4 +162,7 @@ void					print_paths(t_graph **graph, t_path **paths, int count_paths);
 ** free_all.c
 */
 void					free_all(t_lemin *lemin, int count_rooms, int count_paths);
+
+void 			print_count_links(t_graph **graph, int count_rooms);
+
 #endif

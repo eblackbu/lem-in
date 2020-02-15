@@ -26,16 +26,10 @@ t_graph			**del_input_fork(t_graph **graph, int count_rooms, int roomnum, int ne
 	{
 		if (graph[roomnum][i].link == 1 && i != needed_input)
 		{
+			graph[roomnum][0].bfs_lvl = -1;
 			graph[roomnum][i].link = 0;
 			graph[i][roomnum].link = 0;
-			tmp_room = i;
-			while (graph[tmp_room][0].bfs_lvl != 0 && count_output_links(graph, count_rooms, tmp_room) == 0)
-			{
-				tmp_link = find_first_input(graph, count_rooms, tmp_room);
-				graph[tmp_link][tmp_room].link = 0;
-				graph[tmp_room][tmp_link].link = 0;
-				tmp_room = tmp_link;
-			}
+			graph = del_dead_ends(graph, count_rooms);
 		}
 		i++;
 	}
