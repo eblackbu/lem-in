@@ -12,7 +12,7 @@ int			add_children_layers(t_graph ***graph, int count_rooms, int roomnum)
 	{
 		if ((*graph)[roomnum][j].link)
 		{
-			if ((*graph)[j][0].bfs_lvl == -1)
+			if ((*graph)[j][0].bfs_lvl == -1) //TODO попробовать здесь поставить уровни глубины по другому
 			{
 				k = 0;
 				while (k < count_rooms)
@@ -45,6 +45,7 @@ int			is_any_path(t_graph **graph, int count_rooms)
 		return (0);
 	return (1);
 }
+
 /*
 ** Поиск в глубину. Рекурсивно, начиная с нулевого уровня глубины, ищем вершины-потомки от вершины с текущим уровнем глубины.
 ** Присваиваем данным вершинвм layer + 1. Если хотя бы одной вершине на данной итерации был присвоен уровень глубины, запускаем функцию с уровнем глубины layer + 1.

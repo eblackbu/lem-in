@@ -1,7 +1,27 @@
 #include <stdio.h>
 #include "lem-in.h"
 
-void 	print_paths(t_graph **graph, t_path **paths, int count_paths)
+void 			print_links(t_graph **graph, int count_rooms)
+{
+	int i = 0;
+	int j = 0;
+	while (i < count_rooms)
+	{
+		j = 0;
+		while (j < count_rooms)
+		{
+			if (j == 0)
+				printf("name=%s, number=%d bfs=%-10d, ", graph[i][j].name, i, graph[i][j].bfs_lvl);
+			printf(" %2d", graph[i][j].link);
+			j++;
+		}
+		i++;
+		printf("\n");
+	}
+	printf("\n");
+}
+
+void 			print_paths(t_graph **graph, t_path **paths, int count_paths)
 {
 	int i = 0;
 	int j;
@@ -22,14 +42,10 @@ void 	print_paths(t_graph **graph, t_path **paths, int count_paths)
 int		main()
 {
 	t_lemin		*lemin;
-	t_path		**paths;
 
 	//freopen("/home/eblackbu/CLionProjects/lem-in/maps/invalid/no_tubes", "r", stdin);
 	lemin = validation();
-
 	//TODO проверка, есть ли хоть один путь. Если муравей один, сделать дейкстру.
-	//TODO сега на проверке связей, исправить. Проходит, если несколько конечных комнат и начальных.
-	//
 	lemin->links = set_bfs_levels(lemin->links, get_count_rooms(lemin->map), 0);
 	/*
 	 * if lemin->count_ants == 1
@@ -37,7 +53,7 @@ int		main()
 	 * 	else
 	 */
 	lemin->paths = get_solution(lemin->links, get_count_rooms(lemin->map));
-	//print_paths(lemin->links, lemin->paths, count_input_links(lemin->links, get_count_rooms(lemin->map), get_last_room(lemin->links, get_count_rooms(lemin->map))));
+	print_paths(lemin->links, lemin->paths, count_input_links(lemin->links, get_count_rooms(lemin->map), get_last_room(lemin->links, get_count_rooms(lemin->map))));
 	print_solution(lemin, lemin->count_ants);
 	free_all(lemin, get_count_rooms(lemin->map), count_input_links(lemin->links, get_count_rooms(lemin->map), get_last_room(lemin->links, get_count_rooms(lemin->map))));
 	return (0);

@@ -1,5 +1,24 @@
 #include "lem-in.h"
 
+int 			get_len_to_end(t_graph **graph, int count_rooms, int roomnum)
+{
+	int 		i;
+
+	i = 0;
+	while (i < count_rooms)
+	{
+		if (graph[roomnum][i].link)
+		{
+			if (graph[i][0].bfs_lvl == MAX_INT)
+				return (1);
+			else if (graph[i][0].bfs_lvl > graph[roomnum][0].bfs_lvl)
+				return (1 + get_len_to_end(graph, count_rooms, i));
+		}
+		i++;
+	}
+	return (MAX_INT);
+}
+
 t_graph			**del_all_links(t_graph **graph, int count_rooms, int i)
 {
 	int		j;
@@ -28,10 +47,10 @@ t_graph			**del_samelayer_links(t_graph **graph, int count_rooms, int i)
 	{
 		if (graph[i][j].link && graph[i][0].bfs_lvl == graph[j][0].bfs_lvl)
 		{
-			//len_first = get_path_length(graph, count_rooms, i);
-			//len_second = get_path_length(graph, count_rooms, j);
-			graph[i][j].link = 0; //TODO Найти длину пути до конца, выбрать наименьшую
-			graph[j][i].link = 0;
+			len_first = get_len_to_end(graph, count_rooms, i);
+			len_second = get_len_to_end(graph, count_rooms, j);
+			graph[i][j].link = len_first > len_second ? -1 : 1; //TODO Найти длину пути до конца, выбрать наименьшую
+			graph[j][i].link = len_first > len_second ? 1 : -1;
 		}
 		j++;
 	}
