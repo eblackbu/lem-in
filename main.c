@@ -24,7 +24,7 @@ int		main()
 	t_lemin		*lemin;
 	t_path		**paths;
 
-	//freopen("/home/eblackbu/CLionProjects/lem-in/maps/invalid/no_tubes", "r", stdin);
+	//freopen("/home/eblackbu/CLionProjects/lem-in/cmake-build-debug/test_map3", "r", stdin);
 	lemin = validation();
 
 	//TODO проверка, есть ли хоть один путь. Если муравей один, сделать дейкстру.

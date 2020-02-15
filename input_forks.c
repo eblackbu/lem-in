@@ -71,12 +71,12 @@ t_graph			**check_input(t_graph **graph, int count_rooms, int i)
 	return (graph);
 }
 
+/*
+** Начиная с первой вершины, пройтись по всем. Если есть вилка на входе, идти до начала по всем возможным путям,
+** оставить тот, который без вилок выхода. Если все плохие, взять первый
+*/
 t_graph			**find_input_forks(t_graph **graph, int count_rooms)
 {
-	/*
-	 * Начиная с первой вершины, пройтись по всем. Если есть вилка на входе, идти до начала по всем возможным путям,
-	 * оставить тот, который без вилок выхода. Если все плохие, взять первый
-	 */
 	int i;
 	int layer;
 	int max_layer;
@@ -94,8 +94,6 @@ t_graph			**find_input_forks(t_graph **graph, int count_rooms)
 			}
 			i++;
 		}
-		//printf("Убраны ветки с %d уровня\n", layer);
-		//print_links(graph, count_rooms);
 		layer++;
 	}
 	return (graph);

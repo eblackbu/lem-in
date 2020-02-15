@@ -54,7 +54,7 @@ t_graph			**del_unused_links(t_graph **graph, int count_rooms)
 	return (graph);
 }
 
-t_graph			**del_dead_ends(t_graph **graph, int count_rooms)//TODO Проблема здесь!!
+t_graph			**del_dead_ends(t_graph **graph, int count_rooms)
 {
 	int		i;
 	int 	flag;
@@ -86,6 +86,7 @@ t_path			**get_solution(t_graph **graph, int count_rooms)
 	graph = del_unused_links(graph, count_rooms);//TODO разобраться со связями одного уровня глубины
 	graph = del_dead_ends(graph, count_rooms);
 	graph = find_input_forks(graph, count_rooms);
+	//print_links(graph, count_rooms);
 	graph = find_output_forks(graph, count_rooms);
 	//print_links(graph, count_rooms);
 	return (get_paths(graph, count_rooms));
