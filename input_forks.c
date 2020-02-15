@@ -26,10 +26,9 @@ t_graph			**del_input_fork(t_graph **graph, int count_rooms, int roomnum, int ne
 	{
 		if (graph[roomnum][i].link == 1 && i != needed_input)
 		{
-			graph[roomnum][0].bfs_lvl = -1;
+			//graph[roomnum][0].bfs_lvl = -1;
 			graph[roomnum][i].link = 0;
 			graph[i][roomnum].link = 0;
-			graph = del_dead_ends(graph, count_rooms);
 		}
 		i++;
 	}
@@ -90,5 +89,6 @@ t_graph			**find_input_forks(t_graph **graph, int count_rooms)
 		}
 		layer++;
 	}
+	graph = del_dead_ends(graph, count_rooms);
 	return (graph);
 }

@@ -42,7 +42,7 @@ int		main()
 	t_lemin		*lemin;
 	t_path		**paths;
 
-	//freopen("/home/eblackbu/CLionProjects/lem-in/maps/valid/big/map_big_2", "r", stdin);
+	//freopen("/home/eblackbu/CLionProjects/lem-in/cmake-build-debug/maps/valid/difficult/three_ways.map", "r", stdin);
 	lemin = validation();
 
 	//TODO проверка, есть ли хоть один путь. Если муравей один, сделать дейкстру.
