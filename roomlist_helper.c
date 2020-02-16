@@ -14,7 +14,7 @@ int			check_nameplace(t_roomlist **map, char *name, int x, int y)
 		{
 			if (!ft_strcmp(name, tmp->room->name) || (x == tmp->room->x && y == tmp->room->y))
 			{
-				free_all_rooms(map);
+				//free_all_rooms(map);
 				ft_putstr_fd("ERROR\n", 2);
 				exit(-1);
 			}

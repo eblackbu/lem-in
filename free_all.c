@@ -42,7 +42,7 @@ void	free_all_paths(t_path **paths, int count_paths)
 
 void	free_all(t_lemin *lemin, int count_rooms, int count_paths)
 {
-	free_all_rooms(&lemin->map);
+	free_all_rooms(&lemin->list);
 	free_all_links(&lemin->links, count_rooms);
 	free_all_paths(lemin->paths, count_paths);
 	free(lemin);

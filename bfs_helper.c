@@ -1,5 +1,6 @@
 #include "lem-in.h"
 
+/*
 int			add_children_layers(t_graph ***graph, int count_rooms, int roomnum)
 {
 	int 	j;
@@ -29,7 +30,8 @@ int			add_children_layers(t_graph ***graph, int count_rooms, int roomnum)
 	}
 	return (flag);
 }
-
+*/
+/*
 int			is_any_path(t_graph **graph, int count_rooms)
 {
 	int 	i;
@@ -45,11 +47,8 @@ int			is_any_path(t_graph **graph, int count_rooms)
 		return (0);
 	return (1);
 }
-
-/*
-** Поиск в глубину. Рекурсивно, начиная с нулевого уровня глубины, ищем вершины-потомки от вершины с текущим уровнем глубины.
-** Присваиваем данным вершинвм layer + 1. Если хотя бы одной вершине на данной итерации был присвоен уровень глубины, запускаем функцию с уровнем глубины layer + 1.
 */
+/*
 t_graph 	**set_bfs_levels(t_graph **graph, int count_rooms, int layer)
 {
 	int		j;
@@ -72,4 +71,4 @@ t_graph 	**set_bfs_levels(t_graph **graph, int count_rooms, int layer)
 		ft_putendl_fd("ERROR", 2);
 		exit(-1);
 	}
-}
+}*/

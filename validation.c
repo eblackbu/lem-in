@@ -39,7 +39,7 @@ t_lemin			*validation(void)
 		exit(-1);
 	lemin->count_ants = check_ants();
 	check_map(&lemin);
-	if (lemin->map)
+	if (lemin->list)
 		return(lemin);
 	else
 	{

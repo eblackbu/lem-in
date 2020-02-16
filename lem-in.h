@@ -7,27 +7,31 @@
 # define END_ROOM 2
 # define MAX_INT 2147483647
 
-typedef struct	s_room
+typedef struct	s_edge
 {
-	int			number;
-	char		*name;
-	int			x;
-	int			y;
-	int			bfs_level;
-}				t_room;
+	int 		weight;
+	int 		link;
+}				t_edge;
 
-typedef struct			s_roomlist //возможно совместить с s_room
+typedef struct		s_room
+{
+	int				number;
+	char			*name;
+	int				x;
+	int				y;
+	int				dist;
+	int				bfs_lvl;
+	t_edge			*edges;
+	struct s_room	*in;
+	struct s_room	*out;
+}					t_room;
+
+typedef struct			s_roomlist
 {
 	t_room				*room;
 	struct s_roomlist	*next;
 }						t_roomlist;
 
-typedef struct			s_graph
-{
-	char 				*name;
-	int					link;
-	int					bfs_lvl;
-}						t_graph;
 
 typedef struct			s_ant
 {
@@ -45,8 +49,8 @@ typedef struct			s_path
 typedef struct 			s_lemin
 {
 	long long			count_ants; //TODO выяснить, какое максимальное значение муравьев
-	t_roomlist			*map;
-	t_graph 			**links;
+	t_roomlist			*list;
+	t_room				*rooms;
 	t_path				**paths;
 }						t_lemin;
 
@@ -72,26 +76,26 @@ int						is_number(char *line);
 int 					count_spaces(char *roomline);
 int						check_roomline(char *roomline);
 int						get_start_end(char *line);
-char					*get_rooms(t_roomlist **map);
+char					*get_rooms(t_roomlist **list);
 
 /*
 ** links_checker.c
 */
-t_graph					**set_info_links(t_graph **links, t_roomlist *map, int count_rooms);
-t_graph					**init_links(int count_rooms, t_roomlist *map);
-int						set_link(int i, int j, t_graph **graph);
+t_room					*set_info_links(t_room *links, t_roomlist *list, int count_rooms);
+t_room					*init_links(int count_rooms, t_roomlist *list);
+int						set_link(int i, int j, t_room *map);
 int						check_link(t_lemin **lemin, char *linkline, int count_rooms);
 
 /*
 ** bfs_helper.c
 */
-int						add_children_layers(t_graph ***graph, int count_rooms, int roomnum);
-t_graph					**set_bfs_levels(t_graph **graph, int count_rooms, int layer);
+int						add_children_layers(t_room *graph, int count_rooms, int roomnum);
+t_room					*set_bfs_levels(t_room *graph, int count_rooms, int layer);
 
 /*
 ** map_checker.c
 */
-void					print_links(t_graph **graph, int count_rooms);
+void					print_links(t_room *rooms, int count_rooms);
 int						get_count_rooms(t_roomlist *roomlist);
 void					get_links(t_lemin **lemin, char *linkline);
 void					check_map(t_lemin **lemin);
@@ -102,64 +106,4 @@ void					check_map(t_lemin **lemin);
 long long				check_ants(void);
 t_lemin					*validation(void);
 
-/*
-** algo_helper.c
-*/
-int						get_max_layer(t_graph **graph, int count_rooms);
-int 					find_first_input(t_graph **graph, int count_rooms, int roomnum);
-int						find_first_output(t_graph **graph, int count_rooms, int roomnum);
-int						count_input_links(t_graph **graph, int count_rooms, int i);
-int						count_output_links(t_graph **graph, int count_rooms, int i);
-
-int						check_all_forks(t_graph **graph, int count_rooms);
-
-/*
-** algorithm.c
-*/
-t_graph					**del_all_links(t_graph **graph, int count_rooms, int i);
-t_graph					**del_samelayer_links(t_graph **graph, int count_rooms, int i);
-t_graph					**del_unused_links(t_graph **graph, int count_rooms);
-t_graph					**del_dead_ends(t_graph **graph, int count_rooms);
-t_path					**get_solution(t_graph **graph, int count_rooms);
-
-/*
-** input_forks.c
-*/
-int						is_nice_way(t_graph **graph, int count_rooms, int roomnum);
-t_graph					**del_input_fork(t_graph **graph, int count_rooms, int roomnum, int needed_input);
-t_graph					**check_input(t_graph **graph, int count_rooms, int i);
-t_graph					**find_input_forks(t_graph **graph, int count_rooms);
-
-/*
-** output_forks.c
-*/
-t_graph					**find_output_forks(t_graph **graph, int count_rooms);
-
-/*
-** paths_helper.c
-*/
-int						get_first_room(t_graph **graph, int count_rooms);
-int						get_last_room(t_graph **graph, int count_rooms);
-int						get_path_length(t_graph **graph, int count_rooms, int next_room);
-t_ant					*get_path_rooms(t_graph **graph, int count_rooms, int next_room, int length);
-
-/*
-** get_paths.c
-*/
-t_path					**get_paths(t_graph **graph, int count_rooms);
-
-/*
-** print_helper.c
-*/
-void					print_solution(t_lemin *lemin, long long count_ants);
-
-/*
-* main.c
-*/
-void					print_paths(t_graph **graph, t_path **paths, int count_paths);
-
-/*
-** free_all.c
-*/
-void					free_all(t_lemin *lemin, int count_rooms, int count_paths);
 #endif

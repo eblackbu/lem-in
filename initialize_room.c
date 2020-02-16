@@ -53,8 +53,8 @@ t_room		*init_room(int num, char *roomline, int start_end)
 	new_room->x = get_coordinate_x(roomline);
 	new_room->y = get_coordinate_y(roomline);
 	if (start_end)
-		new_room->bfs_level = (start_end == START_ROOM ? 0 : MAX_INT);
+		new_room->bfs_lvl = (start_end == START_ROOM ? 0 : MAX_INT);
 	else
-		new_room->bfs_level = -1;
+		new_room->bfs_lvl = -1;
 	return (new_room);
 }

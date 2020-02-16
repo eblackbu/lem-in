@@ -15,7 +15,7 @@ int				get_count_rooms(t_roomlist *roomlist)
 	return (count);
 }
 
-int				check_start_end(t_graph **graph, int count_rooms)
+int				check_start_end(t_room *rooms, int count_rooms)
 {
 	int 	i;
 	int		start_rooms;
@@ -26,9 +26,9 @@ int				check_start_end(t_graph **graph, int count_rooms)
 	end_rooms = 0;
 	while (i < count_rooms)
 	{
-		if (graph[i][0].bfs_lvl == 0)
+		if (rooms[i].bfs_lvl == 0)
 			start_rooms++;
-		else if (graph[i][0].bfs_lvl == MAX_INT)
+		else if (rooms[i].bfs_lvl == MAX_INT)
 			end_rooms++;
 		i++;
 	}
@@ -41,15 +41,15 @@ void			get_links(t_lemin **lemin, char *linkline)
 {
 	int 		count_rooms;
 
-	count_rooms = get_count_rooms((*lemin)->map);
-	(*lemin)->links = init_links(count_rooms, (*lemin)->map);
+	count_rooms = get_count_rooms((*lemin)->list);
+	(*lemin)->rooms = init_links(count_rooms, (*lemin)->list);
 	while (check_link(lemin, linkline, count_rooms))
 	{
 		ft_strdel(&linkline);
 		if (get_next_line(0, &linkline) < 1)
 			break ;
 	}
-	if (!check_start_end((*lemin)->links, count_rooms))
+	if (!check_start_end((*lemin)->rooms, count_rooms))
 	{
 		ft_putendl_fd("ERROR", 2);
 		exit(-1);
@@ -64,8 +64,8 @@ void			check_map(t_lemin **lemin)
 {
 	char 			*first_link;
 
-	(*lemin)->map = NULL;
-	if (!(first_link = get_rooms(&(*lemin)->map)))
+	(*lemin)->list = NULL;
+	if (!(first_link = get_rooms(&(*lemin)->list)))
 	{
 		ft_putendl_fd("ERROR", 2);
 		exit(-1);
