@@ -1,6 +1,23 @@
 #include <stdio.h>
 #include "lem-in.h"
 
+void 			print_paths(t_path *paths, t_room *rooms)
+{
+	int 	i;
+
+	while (paths)
+	{
+		i = 0;
+		while (i < paths->length)
+		{
+			printf("[%s]-", rooms[paths->roomnum_path[i].roomnum].name);
+			i++;
+		}
+		printf("\n");
+		paths = paths->next;
+	}
+}
+
 void 			print_links(t_room *rooms, int count_rooms)
 {
 	int i = 0;
@@ -11,7 +28,7 @@ void 			print_links(t_room *rooms, int count_rooms)
 		while (j < count_rooms)
 		{
 			if (j == 0)
-				printf("name=%s, number=%d bfs=%-10d, ", rooms[i].name, i, rooms[i].edges[j].link);
+				printf("name=%s, number=%d bfs=%-10d, ", rooms[i].name, i, rooms[i].bfs_lvl);
 			printf(" %2d", rooms[i].edges[j].link);
 			j++;
 		}
@@ -25,14 +42,12 @@ int		main()
 {
 	t_lemin		*lemin;
 
-	freopen("/home/eblackbu/CLionProjects/lem-in/cmake-build-debug/test_map", "r", stdin);
+	//freopen("/home/eblackbu/CLionProjects/lem-in/cmake-build-debug/test_map3", "r", stdin);
 	lemin = validation();
-	print_links(lemin->rooms, get_count_rooms(lemin->list));
-	/*
-	 * if lemin->count_ants == 1
-	 * 		paths = get_digstra();
-	 * 	else
-	 */
+	lemin->paths = get_first_path(lemin, get_count_rooms(lemin->list), 0);
+	//print_links(lemin->rooms, get_count_rooms(lemin->list));
+	print_paths(lemin->paths, lemin->rooms);
+
 	//lemin->paths = get_solution(lemin->links, get_count_rooms(lemin->list));
 	//print_paths(lemin->links, lemin->paths, count_input_links(lemin->links, get_count_rooms(lemin->list), get_last_room(lemin->links, get_count_rooms(lemin->list))));
 	//print_solution(lemin, lemin->count_ants);

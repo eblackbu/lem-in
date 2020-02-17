@@ -22,8 +22,8 @@ typedef struct		s_room
 	int				dist;
 	int				bfs_lvl;
 	t_edge			*edges;
-	struct s_room	*in;
-	struct s_room	*out;
+	struct s_room	*prev;
+	struct s_room	*next;
 }					t_room;
 
 typedef struct			s_roomlist
@@ -44,6 +44,7 @@ typedef struct			s_path
 {
 	int					length;
 	t_ant				*roomnum_path;
+	struct s_path		*next;//придется менять длину и путь после каждого прохода через суурбалле
 }						t_path;
 
 typedef struct 			s_lemin
@@ -51,8 +52,13 @@ typedef struct 			s_lemin
 	long long			count_ants; //TODO выяснить, какое максимальное значение муравьев
 	t_roomlist			*list;
 	t_room				*rooms;
-	t_path				**paths;
+	t_path				*paths;
 }						t_lemin;
+
+/*
+** algo_helper.c
+*/
+int						get_end_room(t_room *rooms, int count_rooms);
 
 /*
 ** initialize_room.c
@@ -87,10 +93,10 @@ int						set_link(int i, int j, t_room *map);
 int						check_link(t_lemin **lemin, char *linkline, int count_rooms);
 
 /*
-** bfs_helper.c
+** dinic_algo.c
 */
-int						add_children_layers(t_room *graph, int count_rooms, int roomnum);
-t_room					*set_bfs_levels(t_room *graph, int count_rooms, int layer);
+int						add_children_layers(t_room **rooms, int count_rooms, int roomnum);
+t_path					*get_first_path(t_lemin *lemin, int count_rooms, int layer);
 
 /*
 ** map_checker.c
