@@ -64,8 +64,6 @@ t_ant		*get_first_roomnum_path(t_room *rooms, int count_rooms, int len)
 		if (rooms[roomnum].bfs_lvl != MAX_INT)
 			rooms[roomnum].prev = &rooms[roomnum];
 		roomnum = i;
-
-		//switch_room(rooms, roomnum); TODO разделить комнату по суурбалле на вход и выход. Исправить нахождение пути
 	}
 	return (path);
 }
@@ -78,6 +76,7 @@ t_path		*set_first_path(t_room *rooms, int count_rooms)
 		exit(-1);
 	path->length = get_first_path_length(rooms, count_rooms);
 	path->roomnum_path = get_first_roomnum_path(rooms, count_rooms, path->length);
+	switch_links(path, rooms, count_rooms);
 	path->next = NULL;
 	return (path);
 }

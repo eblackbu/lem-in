@@ -59,6 +59,7 @@ typedef struct 			s_lemin
 ** algo_helper.c
 */
 int						get_end_room(t_room *rooms, int count_rooms);
+int						switch_links(t_path *path, t_room *rooms, int count_rooms);
 
 /*
 ** initialize_room.c
