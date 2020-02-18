@@ -36,11 +36,13 @@ int 	switch_links(t_path *path, t_room *rooms, int count_rooms)
 		if (i == 0)
 		{
 			rooms[first].edges[path->roomnum_path[i].roomnum].link = 0;
+			rooms[first].edges[path->roomnum_path[i].roomnum].weight = 0;
 			rooms[path->roomnum_path[i].roomnum].edges[first].weight = -1;
 		}
 		else
 		{
 			rooms[path->roomnum_path[i - 1].roomnum].edges[path->roomnum_path[i].roomnum].link = 0;
+			rooms[path->roomnum_path[i - 1].roomnum].edges[path->roomnum_path[i].roomnum].weight = 0;
 			rooms[path->roomnum_path[i].roomnum].edges[path->roomnum_path[i - 1].roomnum].weight = -1;
 		}
 		i++;

@@ -77,7 +77,6 @@ t_path		*set_first_path(t_room *rooms, int count_rooms)
 	path->length = get_first_path_length(rooms, count_rooms);
 	path->roomnum_path = get_first_roomnum_path(rooms, count_rooms, path->length);
 	switch_links(path, rooms, count_rooms);
-	path->next = NULL;
 	return (path);
 }
 

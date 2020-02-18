@@ -1,20 +1,22 @@
 #include <stdio.h>
 #include "lem-in.h"
 
-void 			print_paths(t_path *paths, t_room *rooms)
+void 			print_paths(t_path *paths, t_room *rooms, int count_paths)
 {
 	int 	i;
+	int		j;
 
-	while (paths)
+	i = 0;
+	while (i < count_paths)
 	{
-		i = 0;
-		while (i < paths->length)
+		j = 0;
+		while (j < paths->length)
 		{
-			printf("[%s]-", rooms[paths->roomnum_path[i].roomnum].name);
-			i++;
+			printf("[%s]-", rooms[paths->roomnum_path[j].roomnum].name);
+			j++;
 		}
+		i++;
 		printf("\n");
-		paths = paths->next;
 	}
 }
 
@@ -47,9 +49,10 @@ int		main()
 	lemin = validation();
 	lemin->paths = get_first_path(lemin, get_count_rooms(lemin->list), 0);
 	print_links(lemin->rooms, get_count_rooms(lemin->list));
-	print_paths(lemin->paths, lemin->rooms);
+	print_paths(lemin->paths, lemin->rooms, 1);
 
-	//lemin->paths = get_another_paths(&lemin, get_count_rooms(lemin->list));
+	lemin->paths = get_another_paths(&lemin, get_count_rooms(lemin->list));
+	print_paths(lemin->paths, lemin->rooms, 2);
 	//print_paths(lemin->links, lemin->paths, count_input_links(lemin->links, get_count_rooms(lemin->list), get_last_room(lemin->links, get_count_rooms(lemin->list))));
 	//print_solution(lemin, lemin->count_ants);
 	return (0);

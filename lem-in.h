@@ -21,6 +21,7 @@ typedef struct		s_room
 	int				y;
 	int				dist;
 	int				bfs_lvl;
+	int				in_use;
 	t_edge			*edges;
 	struct s_room	*prev;
 	struct s_room	*next;
@@ -44,7 +45,7 @@ typedef struct			s_path
 {
 	int					length;
 	t_ant				*roomnum_path;
-	struct s_path		*next;//придется менять длину и путь после каждого прохода через суурбалле
+	//struct s_path		*next;
 }						t_path;
 
 typedef struct 			s_lemin
@@ -60,6 +61,23 @@ typedef struct 			s_lemin
 */
 int						get_end_room(t_room *rooms, int count_rooms);
 int						switch_links(t_path *path, t_room *rooms, int count_rooms);
+
+/*
+** bellman-ford.c
+*/
+t_path					*get_new_paths(t_room *rooms, int count_rooms, int count_paths);
+
+/*
+** suurballe_helper.c
+*/
+int						get_len_suur(t_room *rooms, int count_rooms, int last_room, int end_room);
+t_ant					*get_roomnumpath_suur(t_room *rooms, int count_rooms, int last_room, int len);
+
+/*
+** suurballe.c
+*/
+t_path					*del_overused_edges(t_room *rooms, int count_rooms, int count_paths);
+t_path					*get_another_paths(t_lemin **lemin, int count_rooms);
 
 /*
 ** initialize_room.c
