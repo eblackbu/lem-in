@@ -62,7 +62,7 @@ t_ant		*get_first_roomnum_path(t_room *rooms, int count_rooms, int len)
 		if (rooms[i].bfs_lvl != 0)
 			rooms[i].next = &rooms[roomnum];
 		if (rooms[roomnum].bfs_lvl != MAX_INT)
-			rooms[roomnum].prev = &rooms[roomnum];
+			rooms[roomnum].prev = &rooms[i];
 		roomnum = i;
 	}
 	return (path);

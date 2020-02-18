@@ -47,5 +47,20 @@ int 	switch_links(t_path *path, t_room *rooms, int count_rooms)
 		}
 		i++;
 	}
+	return (1);
+}
+
+t_room		*set_null_distance(t_room *rooms, int count_rooms)
+{
+	int		i;
+
+	i = 0;
+	while (i < count_rooms)
+	{
+		if (rooms[i].bfs_lvl != 0)
+			rooms[i].dist = MAX_INT;
+		i++;
+	}
+	return (rooms);
 }
 

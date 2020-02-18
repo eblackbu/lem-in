@@ -23,6 +23,7 @@ typedef struct		s_room
 	int				bfs_lvl;
 	int				in_use;
 	t_edge			*edges;
+	struct s_room	*parent;
 	struct s_room	*prev;
 	struct s_room	*next;
 }					t_room;
@@ -61,6 +62,7 @@ typedef struct 			s_lemin
 */
 int						get_end_room(t_room *rooms, int count_rooms);
 int						switch_links(t_path *path, t_room *rooms, int count_rooms);
+t_room					*set_null_distance(t_room *rooms, int count_rooms);
 
 /*
 ** bellman-ford.c
@@ -77,7 +79,7 @@ t_ant					*get_roomnumpath_suur(t_room *rooms, int count_rooms, int last_room, i
 ** suurballe.c
 */
 t_path					*del_overused_edges(t_room *rooms, int count_rooms, int count_paths);
-t_path					*get_another_paths(t_lemin **lemin, int count_rooms);
+void get_another_paths(t_lemin **lemin, int count_rooms);
 
 /*
 ** initialize_room.c
@@ -130,5 +132,15 @@ void					check_map(t_lemin **lemin);
 */
 long long				check_ants(void);
 t_lemin					*validation(void);
+
+/*
+** free_all.c
+*/
+void					del_roomlist(t_roomlist **map);
+void					del_all_rooms(t_room **rooms, int count_rooms);
+void					del_all_paths(t_path **paths, int count_paths);
+void					free_all(t_lemin *lemin, int count_rooms, int count_paths);
+
+void 			print_paths(t_path *paths, t_room *rooms, int count_paths);
 
 #endif

@@ -31,12 +31,27 @@ t_path			*set_new_paths(t_room *rooms, int count_rooms, int count_paths, int end
 		if (rooms[end_room].edges[j].link && rooms[end_room].edges[j].weight == -1)
 		{
 			paths[i].length = get_len_suur(rooms, count_rooms, j, end_room);
+			int a = paths[i].length;
 			paths[i].roomnum_path = get_roomnumpath_suur(rooms, count_rooms, j, paths[i].length);
 			i++;
 		}
 		j++;
 	}
 	return (paths);
+}
+
+t_room			*find_negative_edge(t_room *rooms, int count_rooms, int roomnum)
+{
+	int 		i;
+
+	i = 0;
+	while (i < count_rooms)
+	{
+		if (rooms[roomnum].edges[i].weight == -1)
+			return (&rooms[i]);
+		i++;
+	}
+	exit(-1);
 }
 
 t_path 			*del_overused_edges(t_room *rooms, int count_rooms, int count_paths)
@@ -54,9 +69,12 @@ t_path 			*del_overused_edges(t_room *rooms, int count_rooms, int count_paths)
 	{
 		tmp_room = last_room;
 		last_room = rooms[tmp_room].prev->number;
+		if (!(rooms[last_room].edges[tmp_room].weight == -1 && rooms[last_room].edges[tmp_room].link == 1))
+			rooms[tmp_room].edges[last_room].weight = -1;
+		else
+			rooms[tmp_room].prev = find_negative_edge(rooms, count_rooms, tmp_room);
 		rooms[last_room].edges[tmp_room].link = 0;
 		rooms[last_room].edges[tmp_room].weight = 0;
-		rooms[tmp_room].edges[last_room].weight = -1;
 	}
 	print_links(rooms, count_rooms);
 	return (set_new_paths(rooms, count_rooms, count_paths, end_room));
@@ -66,7 +84,7 @@ t_path 			*del_overused_edges(t_room *rooms, int count_rooms, int count_paths)
 	 */
 }
 
-t_path			*get_another_paths(t_lemin **lemin, int count_rooms)
+void			get_another_paths(t_lemin **lemin, int count_rooms)
 {
 	t_path		*new_path;
 	int 		count_paths;
@@ -75,10 +93,11 @@ t_path			*get_another_paths(t_lemin **lemin, int count_rooms)
 	new_path = get_new_paths((*lemin)->rooms, count_rooms, count_paths);//Bellman-Ford
 	while ((*lemin)->count_ants > count_paths && new_path)
 	{
-		free((*lemin)->paths->roomnum_path);
-		free((*lemin)->paths);
+		del_all_paths(&(*lemin)->paths, count_paths);
 		(*lemin)->paths = new_path;
-		new_path = NULL;//get_new_paths((*lemin)->rooms, count_rooms, ++count_paths);
+		count_paths++;
+		print_paths((*lemin)->paths, (*lemin)->rooms, count_paths);
+		(*lemin)->rooms = set_null_distance((*lemin)->rooms, count_rooms);
+		new_path = get_new_paths((*lemin)->rooms, count_rooms, count_paths);
 	}
-	return (new_path);
 }
