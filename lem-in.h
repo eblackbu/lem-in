@@ -23,9 +23,10 @@ typedef struct		s_room
 	int				bfs_lvl;
 	int				in_use;
 	t_edge			*edges;
-	struct s_room	*parent;
 	struct s_room	*prev;
 	struct s_room	*next;
+	struct s_room	*new_prev;
+	struct s_room	*new_next;
 }					t_room;
 
 typedef struct			s_roomlist

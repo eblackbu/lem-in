@@ -32,14 +32,14 @@ void 			print_links(t_room *rooms, int count_rooms)
 			if (j == 0)
 			{
 				printf("name=%5s, number=%d bfs=%-10d, distance=%-10d, ", rooms[i].name, i, rooms[i].bfs_lvl, rooms[i].dist);
-				if (rooms[i].parent)
-					printf("parent = %2d,", rooms[i].parent->number);
-				else
-					printf("            ");
 				if (rooms[i].prev)
 					printf(" prev=%2d, next=%2d, ", rooms[i].prev->number, rooms[i].next->number);
 				else
-					printf("                   ");
+					printf("                  ");
+				if (rooms[i].new_prev && rooms[i].new_next)
+					printf(" new_prev=%2d, new_next=%2d, ", rooms[i].new_prev->number, rooms[i].new_next->number);
+				else
+					printf("                            ");
 			}
 			printf(" %2d", rooms[i].edges[j].weight);
 			j++;
@@ -50,19 +50,37 @@ void 			print_links(t_room *rooms, int count_rooms)
 	printf("\n");
 }
 
+int 	get_count_paths(t_room *rooms, int count_rooms)
+{
+	int 	i;
+	int 	end;
+	int 	count;
+
+	i = 0;
+	count = 0;
+	end = get_end_room(rooms, count_rooms);
+	while (i < count_rooms)
+	{
+		if (rooms[end].edges[i].weight == -1)
+			count++;
+		i++;
+	}
+	return (count);
+}
+
 int		main()
 {
 	t_lemin		*lemin;
 	int 		count_max;
 
-	freopen("/home/eblackbu/CLionProjects/lem-in/cmake-build-debug/test_map3", "r", stdin);
+	//freopen("/home/eblackbu/CLionProjects/lem-in/cmake-build-debug/test_map", "r", stdin);
 	lemin = validation();
 	lemin->paths = get_first_path(lemin, get_count_rooms(lemin->list), 0);
-	print_links(lemin->rooms, get_count_rooms(lemin->list));
-	print_paths(lemin->paths, lemin->rooms, 1);
+//	print_links(lemin->rooms, get_count_rooms(lemin->list));
+	//print_paths(lemin->paths, lemin->rooms, 1);
 
 	get_another_paths(&lemin, get_count_rooms(lemin->list));
-	print_paths(lemin->paths, lemin->rooms, 2);
+	print_paths(lemin->paths, lemin->rooms, get_count_paths(lemin->rooms, get_count_rooms(lemin->list)));
 	//print_paths(lemin->links, lemin->paths, count_input_links(lemin->links, get_count_rooms(lemin->list), get_last_room(lemin->links, get_count_rooms(lemin->list))));
 	//print_solution(lemin, lemin->count_ants);
 	return (0);

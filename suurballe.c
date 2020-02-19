@@ -68,15 +68,23 @@ t_path 			*del_overused_edges(t_room *rooms, int count_rooms, int count_paths)
 	while (rooms[last_room].bfs_lvl != 0)
 	{
 		tmp_room = last_room;
-		last_room = rooms[tmp_room].prev->number;
-		if (!(rooms[last_room].edges[tmp_room].weight == -1 && rooms[last_room].edges[tmp_room].link == 1))
-			rooms[tmp_room].edges[last_room].weight = -1;
+		last_room = rooms[tmp_room].new_prev->number;
+		rooms[tmp_room].edges[last_room].link = 1;
+		rooms[tmp_room].edges[last_room].weight = -1;
+		if (!(rooms[last_room].edges[tmp_room].weight == -1 && rooms[tmp_room].edges[last_room].weight == -1))
+		{
+			rooms[tmp_room].prev = rooms[tmp_room].new_prev;
+			rooms[tmp_room].next = rooms[tmp_room].new_next;
+		}
 		else
-			rooms[tmp_room].prev = find_negative_edge(rooms, count_rooms, tmp_room);
+		{
+			rooms[tmp_room].edges[last_room].weight = 0;
+			rooms[tmp_room].edges[last_room].link = 0;
+		}
 		rooms[last_room].edges[tmp_room].link = 0;
 		rooms[last_room].edges[tmp_room].weight = 0;
 	}
-	print_links(rooms, count_rooms);
+	//print_links(rooms, count_rooms);
 	return (set_new_paths(rooms, count_rooms, count_paths, end_room));
 	/*
 	 * количество однонаправленных узлов из конечной вершины - количество новых путей.
@@ -90,7 +98,9 @@ void			get_another_paths(t_lemin **lemin, int count_rooms)
 	int 		count_paths;
 
 	count_paths = 1;
+	ft_putendl("0");
 	new_path = get_new_paths((*lemin)->rooms, count_rooms, count_paths);//Bellman-Ford
+	ft_putendl("1");
 	while ((*lemin)->count_ants > count_paths && new_path)
 	{
 		del_all_paths(&(*lemin)->paths, count_paths);
@@ -99,5 +109,7 @@ void			get_another_paths(t_lemin **lemin, int count_rooms)
 		print_paths((*lemin)->paths, (*lemin)->rooms, count_paths);
 		(*lemin)->rooms = set_null_distance((*lemin)->rooms, count_rooms);
 		new_path = get_new_paths((*lemin)->rooms, count_rooms, count_paths);
+		ft_putnbr(count_paths);
+		ft_putchar('\n');
 	}
 }
