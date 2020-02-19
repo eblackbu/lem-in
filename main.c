@@ -52,18 +52,18 @@ void 			print_links(t_room *rooms, int count_rooms)
 
 int 	get_count_paths(t_room *rooms, int count_rooms)
 {
-	int 	i;
 	int 	end;
 	int 	count;
+	t_link	*tmp;
 
-	i = 0;
 	count = 0;
 	end = get_end_room(rooms, count_rooms);
-	while (i < count_rooms)
+	tmp = rooms[end].links;
+	while (tmp)
 	{
-		if (rooms[end].edges[i].weight == -1)
+		if (tmp->weight == -1)
 			count++;
-		i++;
+		tmp = tmp->next;
 	}
 	return (count);
 }
@@ -73,14 +73,14 @@ int		main()
 	t_lemin		*lemin;
 	int 		count_max;
 
-	//freopen("/home/eblackbu/CLionProjects/lem-in/cmake-build-debug/test_map", "r", stdin);
+	freopen("/home/eblackbu/CLionProjects/lem-in/cmake-build-debug/test_map", "r", stdin);
 	lemin = validation();
 	lemin->paths = get_first_path(lemin, get_count_rooms(lemin->list), 0);
 //	print_links(lemin->rooms, get_count_rooms(lemin->list));
 	//print_paths(lemin->paths, lemin->rooms, 1);
 
-	get_another_paths(&lemin, get_count_rooms(lemin->list));
-	print_paths(lemin->paths, lemin->rooms, get_count_paths(lemin->rooms, get_count_rooms(lemin->list)));
+	//get_another_paths(&lemin, get_count_rooms(lemin->list));
+	//print_paths(lemin->paths, lemin->rooms, get_count_paths(lemin->rooms, get_count_rooms(lemin->list)));
 	//print_paths(lemin->links, lemin->paths, count_input_links(lemin->links, get_count_rooms(lemin->list), get_last_room(lemin->links, get_count_rooms(lemin->list))));
 	//print_solution(lemin, lemin->count_ants);
 	return (0);

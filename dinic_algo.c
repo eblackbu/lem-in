@@ -2,6 +2,7 @@
 
 int			add_children_layers(t_room **rooms, int count_rooms, int roomnum)
 {
+	/*
 	int 	j;
 	int 	flag;
 
@@ -19,11 +20,27 @@ int			add_children_layers(t_room **rooms, int count_rooms, int roomnum)
 		}
 		j++;
 	}
+	 */
+	int 	flag;
+	t_link	*tmp;
+
+	flag = 0;
+	tmp = (*rooms)[roomnum].links;
+	while (tmp)
+	{
+		if ((*rooms)[tmp->roomnum].bfs_lvl == -1)
+		{
+			(*rooms)[tmp->roomnum].bfs_lvl = (*rooms)[roomnum].bfs_lvl + 1;
+			flag = 1;
+		}
+		tmp = tmp->next;
+	}
 	return (flag);
 }
 
 int			get_first_path_length(t_room *rooms, int count_rooms)
 {
+	/*
 	int 	end;
 	int 	len;
 	int		i;
@@ -37,6 +54,21 @@ int			get_first_path_length(t_room *rooms, int count_rooms)
 			len = rooms[i].bfs_lvl + 1;
 		i++;
 	}
+	*/
+
+	int		len;
+	int 	tmp_room;
+	t_link	*tmp;
+
+	len = MAX_INT - 1;
+	tmp_room = get_end_room(rooms, count_rooms);
+	tmp = rooms[tmp_room].links;
+	while (tmp)
+	{
+		if (rooms[tmp->roomnum].bfs_lvl < len && rooms[tmp->roomnum].bfs_lvl != -1)
+			len = rooms[tmp->roomnum].bfs_lvl + 1;
+		tmp = tmp->next;
+	}
 	if (len == MAX_INT - 1)
 		exit(-1);
 	return (len);
@@ -45,7 +77,7 @@ int			get_first_path_length(t_room *rooms, int count_rooms)
 t_ant		*get_first_roomnum_path(t_room *rooms, int count_rooms, int len)
 {
 	t_ant	*path;
-	int 	i;
+	t_link	*tmp;
 	int		roomnum;
 
 	if (!(path = (t_ant*)malloc(sizeof(t_ant) * len--)))
@@ -55,15 +87,15 @@ t_ant		*get_first_roomnum_path(t_room *rooms, int count_rooms, int len)
 	{
 		path[len].roomnum = roomnum;
 		path[len].is_ant_here = 0;
-		i = 0;
-		while (rooms[i].bfs_lvl != len || rooms[roomnum].edges[i].link == 0)
-			i++;
+		tmp = rooms[roomnum].links;
+		while (tmp && rooms[tmp->roomnum].bfs_lvl != len)
+			tmp = tmp->next;
 		len--;
-		if (rooms[i].bfs_lvl != 0)
-			rooms[i].next = &rooms[roomnum];
+		if (rooms[tmp->roomnum].bfs_lvl != 0)
+			rooms[tmp->roomnum].next = &rooms[roomnum];
 		if (rooms[roomnum].bfs_lvl != MAX_INT)
-			rooms[roomnum].prev = &rooms[i];
-		roomnum = i;
+			rooms[roomnum].prev = &rooms[tmp->roomnum];
+		roomnum = tmp->roomnum;
 	}
 	return (path);
 }

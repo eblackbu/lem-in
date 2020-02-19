@@ -4,14 +4,23 @@
 
 int				get_last_room(t_room *rooms, int count_rooms, int end)
 {
-	int			i;
+	t_link		*tmp;
 
+	/*
 	i = 0;
 	while (i < count_rooms)
 	{
 		if (rooms[end].edges[i].link && rooms[i].edges[end].link && rooms[i].dist == rooms[end].dist - 1)
 			return (i);
 		i++;
+	}
+	*/
+	tmp = rooms[end].links;
+	while (tmp)
+	{
+		if (rooms[tmp->roomnum].dist == rooms[end].dist - 1)
+			return (tmp->roomnum);
+		tmp = tmp->next;
 	}
 	exit(-1);
 }
@@ -40,6 +49,7 @@ t_path			*set_new_paths(t_room *rooms, int count_rooms, int count_paths, int end
 	return (paths);
 }
 
+/*
 t_room			*find_negative_edge(t_room *rooms, int count_rooms, int roomnum)
 {
 	int 		i;
@@ -53,6 +63,21 @@ t_room			*find_negative_edge(t_room *rooms, int count_rooms, int roomnum)
 	}
 	exit(-1);
 }
+*/
+t_room			*set_neg_weight(t_room *rooms, int next_room, int prev_room)
+{
+	t_link		*tmp_last;
+	t_link		*tmp;
+
+	tmp = rooms[next_room].links;
+	while (tmp->roomnum != prev_room)
+		tmp = tmp->next;
+	if (!tmp)
+		exit(-1);
+	tmp->weight = -1;
+	rooms = del_link(rooms, prev_room, next_room);
+	return (rooms);
+}
 
 t_path 			*del_overused_edges(t_room *rooms, int count_rooms, int count_paths)
 {
@@ -62,27 +87,35 @@ t_path 			*del_overused_edges(t_room *rooms, int count_rooms, int count_paths)
 
 	end_room = get_end_room(rooms, count_rooms);
 	last_room = get_last_room(rooms, count_rooms, end_room);
+	/*
 	rooms[last_room].edges[end_room].link = 0;
 	rooms[last_room].edges[end_room].weight = 0;
 	rooms[end_room].edges[last_room].weight = -1;
+	 */
+	rooms = set_neg_weight(rooms, end_room, last_room);
 	while (rooms[last_room].bfs_lvl != 0)
 	{
 		tmp_room = last_room;
 		last_room = rooms[tmp_room].new_prev->number;
-		rooms[tmp_room].edges[last_room].link = 1;
-		rooms[tmp_room].edges[last_room].weight = -1;
 		if (!(rooms[last_room].edges[tmp_room].weight == -1 && rooms[tmp_room].edges[last_room].weight == -1))
 		{
+			rooms = set_neg_weight(rooms, tmp_room, last_room);
 			rooms[tmp_room].prev = rooms[tmp_room].new_prev;
 			rooms[tmp_room].next = rooms[tmp_room].new_next;
 		}
 		else
 		{
+			rooms = del_link(rooms, tmp_room, last_room);
+			/*
 			rooms[tmp_room].edges[last_room].weight = 0;
 			rooms[tmp_room].edges[last_room].link = 0;
+			 */
 		}
+		rooms = del_link(rooms, last_room, tmp_room);
+		/*
 		rooms[last_room].edges[tmp_room].link = 0;
 		rooms[last_room].edges[tmp_room].weight = 0;
+		 */
 	}
 	//print_links(rooms, count_rooms);
 	return (set_new_paths(rooms, count_rooms, count_paths, end_room));

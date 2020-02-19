@@ -7,11 +7,18 @@
 # define END_ROOM 2
 # define MAX_INT 2147483647
 
-typedef struct	s_edge
+typedef struct		s_link
 {
-	int 		weight;
-	int 		link;
-}				t_edge;
+	int				weight;
+	int 			roomnum;
+	struct s_link	*next;
+}					t_link;
+
+typedef struct		s_edge
+{
+	int 			weight;
+	int 			link;
+}					t_edge;
 
 typedef struct		s_room
 {
@@ -22,7 +29,8 @@ typedef struct		s_room
 	int				dist;
 	int				bfs_lvl;
 	int				in_use;
-	t_edge			*edges;
+	//t_edge			*edges;
+	t_link			*links;
 	struct s_room	*prev;
 	struct s_room	*next;
 	struct s_room	*new_prev;
@@ -57,6 +65,13 @@ typedef struct 			s_lemin
 	t_room				*rooms;
 	t_path				*paths;
 }						t_lemin;
+
+/*
+** list_helper.c
+*/
+t_room					*del_link(t_room *rooms, int room_first, int room_where);
+t_link					*new_link(int weight, int room);
+t_link					*add_new_link(t_link *links, int weight, int room);
 
 /*
 ** algo_helper.c

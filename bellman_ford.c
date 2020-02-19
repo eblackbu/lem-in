@@ -1,10 +1,10 @@
 #include "lem-in.h"
 
-t_room		set_distance(t_room *rooms, int i, int j)
+t_room		set_distance(t_room *rooms, int i, int j, int weight)
 {
-	if (rooms[j].bfs_lvl != 0 && rooms[i].dist != MAX_INT && rooms[j].dist > rooms[i].dist + rooms[i].edges[j].weight)
+	if (rooms[j].bfs_lvl != 0 && rooms[i].dist != MAX_INT && rooms[j].dist > rooms[i].dist + weight)
 	{
-		rooms[j].dist = rooms[i].dist + rooms[i].edges[j].weight;
+		rooms[j].dist = rooms[i].dist + weight;
 		if (rooms[i].bfs_lvl != 0)
 			rooms[i].new_next = &rooms[j];
 		if (rooms[j].bfs_lvl != MAX_INT)
@@ -19,17 +19,25 @@ t_room		set_distance(t_room *rooms, int i, int j)
 t_room		*get_distance(t_room *rooms, int count_rooms)
 {
 	int		i;
-	int 	j;
+	t_link	*tmp;
 
 	i = 0;
 	while (i < count_rooms)
 	{
+		/*
 		j = 0;
 		while (j < count_rooms)
 		{
 			if (rooms[i].edges[j].link)
 				rooms[j] = set_distance(rooms, i, j);
 			j++;
+		}
+		*/
+		tmp = rooms[i].links;
+		while (tmp)
+		{
+			rooms[i] = set_distance(rooms, i, tmp->roomnum, tmp->weight);
+			tmp = tmp->next;
 		}
 		i++;
 	}
