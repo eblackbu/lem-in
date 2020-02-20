@@ -76,6 +76,7 @@ t_link					*add_new_link(t_link *links, int weight, int room);
 /*
 ** algo_helper.c
 */
+int						get_start_room(t_room *rooms, int count_rooms);
 int						get_end_room(t_room *rooms, int count_rooms);
 int						switch_links(t_path *path, t_room *rooms, int count_rooms);
 t_room					*set_null_distance(t_room *rooms, int count_rooms);
@@ -158,6 +159,16 @@ void					del_all_rooms(t_room **rooms, int count_rooms);
 void					del_all_paths(t_path **paths, int count_paths);
 void					free_all(t_lemin *lemin, int count_rooms, int count_paths);
 
-void 			print_paths(t_path *paths, t_room *rooms, int count_paths);
+/*
+** print_helper.c
+*/
+void					print_solution(t_lemin *lemin, long long count_ants, int count_rooms, int count_paths);
+void					sort_paths(t_path **paths, int count_paths);
+
+/*
+ * main.c //TODO Раскидать потом
+ */
+void 					print_paths(t_path *paths, t_room *rooms, int count_paths);
+int 					get_count_paths(t_room *rooms, int count_rooms);
 
 #endif

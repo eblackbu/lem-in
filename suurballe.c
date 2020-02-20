@@ -125,10 +125,14 @@ void			get_another_paths(t_lemin **lemin, int count_rooms)
 	new_path = get_new_paths((*lemin)->rooms, count_rooms, count_paths);//Bellman-Ford
 	while ((*lemin)->count_ants > count_paths && new_path)
 	{
-		del_all_paths(&(*lemin)->paths, count_paths);
-		(*lemin)->paths = new_path;
+		//if () TODO условие на замену существующих путей
+		//{
+			del_all_paths(&(*lemin)->paths, count_paths);
+			(*lemin)->paths = new_path;
+		//}
 		count_paths++;
 		(*lemin)->rooms = set_null_distance((*lemin)->rooms, count_rooms);
 		new_path = get_new_paths((*lemin)->rooms, count_rooms, count_paths);
 	}
+	sort_paths(&(*lemin)->paths, count_paths);
 }

@@ -75,16 +75,19 @@ int 	get_count_paths(t_room *rooms, int count_rooms)
 int		main()
 {
 	t_lemin		*lemin;
-	int 		count_max;
+	int 		count_rooms;
+	int 		count_paths;
 
-	//freopen("/home/eblackbu/CLionProjects/lem-in/cmake-build-debug/test_map6", "r", stdin);
+	//freopen("/home/eblackbu/CLionProjects/lem-in/cmake-build-debug/test_map3", "r", stdin);
 	lemin = validation();
 	lemin->paths = get_first_path(lemin, get_count_rooms(lemin->list), 0);
 //	print_links(lemin->rooms, get_count_rooms(lemin->list));
 	//print_paths(lemin->paths, lemin->rooms, 1);
-	get_another_paths(&lemin, get_count_rooms(lemin->list));
-	print_paths(lemin->paths, lemin->rooms, get_count_paths(lemin->rooms, get_count_rooms(lemin->list)));
-	//print_solution(lemin, lemin->count_ants);
+	count_rooms = get_count_rooms(lemin->list);
+	get_another_paths(&lemin, count_rooms);
+	count_paths = get_count_paths(lemin->rooms, count_rooms);
+	//print_paths(lemin->paths, lemin->rooms, count_paths);//TODO Флаг дебага, поставить условие
+	print_solution(lemin, lemin->count_ants, count_rooms, count_paths);
 	return (0);
 }
 
