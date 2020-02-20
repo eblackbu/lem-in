@@ -16,6 +16,19 @@ void		del_roomlist(t_roomlist **map)
 	}
 }
 
+void 		del_all_links(t_room *room)
+{
+	t_link	*tmp;
+
+	tmp = room->links;
+	while (tmp)
+	{
+		room->links = tmp->next;
+		free(tmp);
+		tmp = room->links;
+	}
+}
+
 void 		del_all_rooms(t_room **rooms, int count_rooms)
 {
 	int		i;
@@ -23,7 +36,7 @@ void 		del_all_rooms(t_room **rooms, int count_rooms)
 	i = 0;
 	while (i < count_rooms)
 	{
-		free((*rooms[i]).edges);
+		del_all_links(rooms[i]);
 		i++;
 	}
 	free(*rooms);

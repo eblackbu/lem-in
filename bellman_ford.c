@@ -5,15 +5,15 @@ t_room		set_distance(t_room *rooms, int i, int j, int weight)
 	if (rooms[j].bfs_lvl != 0 && rooms[i].dist != MAX_INT && rooms[j].dist > rooms[i].dist + weight)
 	{
 		rooms[j].dist = rooms[i].dist + weight;
-		if (rooms[i].bfs_lvl != 0)
+		if (rooms[i].bfs_lvl != 0 && rooms[i].bfs_lvl != MAX_INT)
 			rooms[i].new_next = &rooms[j];
-		if (rooms[j].bfs_lvl != MAX_INT)
+		if (rooms[i].bfs_lvl != MAX_INT)
 			rooms[j].new_prev = &rooms[i];
 	}
 	/*
 	 * TODO поставить поле in_use в структуру комнат. Проверять, если i - in_use, а j - !in_use, то если prev для i - !in_use, то такой связи нет
 	 */
-	return (rooms[j]);
+	return (rooms[i]);
 }
 
 t_room		*get_distance(t_room *rooms, int count_rooms)
@@ -53,10 +53,10 @@ t_path		*get_new_paths(t_room *rooms, int count_rooms, int count_paths)
 	new_path = NULL;
 	while (i < count_rooms)
 	{
-		rooms = get_distance(rooms, count_rooms);//TODO переписать связи на список, а не массив смежности
+		rooms = get_distance(rooms, count_rooms);
+		//print_links(rooms, count_rooms);
 		i++;
 	}
-	//print_links(rooms, count_rooms);//TODO записать новые пути через prev/next, попутно обрезая двухсторонние обратные линии.
 	if (rooms[get_end_room(rooms, count_rooms)].dist != MAX_INT)
 		new_path = del_overused_edges(rooms, count_rooms, count_paths);
 	return (new_path);

@@ -24,7 +24,7 @@ int		get_end_room(t_room *rooms, int count_rooms)
 	return (end);
 }
 
-int 	switch_links(t_path *path, t_room *rooms, int count_rooms)
+int 		switch_links(t_path *path, t_room *rooms, int count_rooms)
 {
 	int 	i;
 	int 	first;
@@ -34,17 +34,10 @@ int 	switch_links(t_path *path, t_room *rooms, int count_rooms)
 	while (i < path->length)
 	{
 		if (i == 0)
-		{
-			rooms[first].edges[path->roomnum_path[i].roomnum].link = 0;
-			rooms[first].edges[path->roomnum_path[i].roomnum].weight = 0;
-			rooms[path->roomnum_path[i].roomnum].edges[first].weight = -1;
-		}
+			rooms = set_neg_weight(rooms, path->roomnum_path[i].roomnum, first);
 		else
-		{
-			rooms[path->roomnum_path[i - 1].roomnum].edges[path->roomnum_path[i].roomnum].link = 0;
-			rooms[path->roomnum_path[i - 1].roomnum].edges[path->roomnum_path[i].roomnum].weight = 0;
-			rooms[path->roomnum_path[i].roomnum].edges[path->roomnum_path[i - 1].roomnum].weight = -1;
-		}
+			rooms = set_neg_weight(rooms, path->roomnum_path[i].roomnum, path->roomnum_path[i - 1].roomnum);
+		//print_links(rooms, count_rooms);
 		i++;
 	}
 	return (1);

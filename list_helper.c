@@ -1,19 +1,35 @@
 #include "lem-in.h"
 
+int 		get_weight_link(t_room *rooms, int room_first, int room_where)
+{
+	t_link	*tmp;
+
+	tmp = rooms[room_first].links;
+	while (tmp->roomnum != room_where)
+		tmp = tmp->next;
+	if (!tmp)
+		exit(-1);
+	return(tmp->weight);
+}
+
 t_room		*del_link(t_room *rooms, int room_first, int room_where)
 {
 	t_link	*tmp;
 	t_link	*tmp_last;
 
+	tmp_last = rooms[room_first].links;
 	tmp = rooms[room_first].links;
 	while (tmp->roomnum != room_where)
 	{
 		tmp_last = tmp;
 		tmp = tmp->next;
 	}
-	if (!tmp)
-		exit(-1);
-	tmp_last->next = tmp->next;
+	//if (!tmp)
+		//exit(-1);
+	if (tmp_last == tmp)
+		rooms[room_first].links = tmp->next;
+	else
+		tmp_last->next = tmp->next;
 	free(tmp);
 	return (rooms);
 }

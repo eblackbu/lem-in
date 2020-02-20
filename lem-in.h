@@ -69,6 +69,7 @@ typedef struct 			s_lemin
 /*
 ** list_helper.c
 */
+int						get_weight_link(t_room *rooms, int room_first, int room_where);
 t_room					*del_link(t_room *rooms, int room_first, int room_where);
 t_link					*new_link(int weight, int room);
 t_link					*add_new_link(t_link *links, int weight, int room);
@@ -94,6 +95,7 @@ t_ant					*get_roomnumpath_suur(t_room *rooms, int count_rooms, int last_room, i
 /*
 ** suurballe.c
 */
+t_room					*set_neg_weight(t_room *rooms, int next_room, int prev_room);
 t_path					*del_overused_edges(t_room *rooms, int count_rooms, int count_paths);
 void get_another_paths(t_lemin **lemin, int count_rooms);
 

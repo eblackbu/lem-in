@@ -28,23 +28,24 @@ int				get_last_room(t_room *rooms, int count_rooms, int end)
 t_path			*set_new_paths(t_room *rooms, int count_rooms, int count_paths, int end_room)
 {
 	t_path		*paths;
+	t_link		*tmp;
 	int			i;
-	int			j;
+
 
 	i = 0;
 	if (!(paths = (t_path*)malloc(sizeof(t_path) * (count_paths + 1))))
 		exit(-1);
-	j = 0;
-	while (j < count_rooms)
+	tmp = rooms[end_room].links;
+	while (tmp)
 	{
-		if (rooms[end_room].edges[j].link && rooms[end_room].edges[j].weight == -1)
+		if (tmp->weight == -1)
 		{
-			paths[i].length = get_len_suur(rooms, count_rooms, j, end_room);
+			paths[i].length = get_len_suur(rooms, count_rooms, tmp->roomnum, end_room);
 			int a = paths[i].length;
-			paths[i].roomnum_path = get_roomnumpath_suur(rooms, count_rooms, j, paths[i].length);
+			paths[i].roomnum_path = get_roomnumpath_suur(rooms, count_rooms, tmp->roomnum, paths[i].length);
 			i++;
 		}
-		j++;
+		tmp = tmp->next;
 	}
 	return (paths);
 }
@@ -66,7 +67,6 @@ t_room			*find_negative_edge(t_room *rooms, int count_rooms, int roomnum)
 */
 t_room			*set_neg_weight(t_room *rooms, int next_room, int prev_room)
 {
-	t_link		*tmp_last;
 	t_link		*tmp;
 
 	tmp = rooms[next_room].links;
@@ -86,18 +86,13 @@ t_path 			*del_overused_edges(t_room *rooms, int count_rooms, int count_paths)
 	int 		last_room;
 
 	end_room = get_end_room(rooms, count_rooms);
-	last_room = get_last_room(rooms, count_rooms, end_room);
-	/*
-	rooms[last_room].edges[end_room].link = 0;
-	rooms[last_room].edges[end_room].weight = 0;
-	rooms[end_room].edges[last_room].weight = -1;
-	 */
+	last_room = rooms[end_room].new_prev->number;
 	rooms = set_neg_weight(rooms, end_room, last_room);
 	while (rooms[last_room].bfs_lvl != 0)
 	{
 		tmp_room = last_room;
 		last_room = rooms[tmp_room].new_prev->number;
-		if (!(rooms[last_room].edges[tmp_room].weight == -1 && rooms[tmp_room].edges[last_room].weight == -1))
+		if (get_weight_link(rooms, last_room, tmp_room) != -1)
 		{
 			rooms = set_neg_weight(rooms, tmp_room, last_room);
 			rooms[tmp_room].prev = rooms[tmp_room].new_prev;
@@ -105,19 +100,15 @@ t_path 			*del_overused_edges(t_room *rooms, int count_rooms, int count_paths)
 		}
 		else
 		{
-			rooms = del_link(rooms, tmp_room, last_room);
+			rooms = del_link(rooms, last_room, tmp_room);
 			/*
 			rooms[tmp_room].edges[last_room].weight = 0;
 			rooms[tmp_room].edges[last_room].link = 0;
 			 */
 		}
-		rooms = del_link(rooms, last_room, tmp_room);
-		/*
-		rooms[last_room].edges[tmp_room].link = 0;
-		rooms[last_room].edges[tmp_room].weight = 0;
-		 */
+		//print_links(rooms, count_rooms);
 	}
-	//print_links(rooms, count_rooms);
+
 	return (set_new_paths(rooms, count_rooms, count_paths, end_room));
 	/*
 	 * количество однонаправленных узлов из конечной вершины - количество новых путей.
@@ -131,18 +122,15 @@ void			get_another_paths(t_lemin **lemin, int count_rooms)
 	int 		count_paths;
 
 	count_paths = 1;
-	ft_putendl("0");
 	new_path = get_new_paths((*lemin)->rooms, count_rooms, count_paths);//Bellman-Ford
-	ft_putendl("1");
 	while ((*lemin)->count_ants > count_paths && new_path)
 	{
 		del_all_paths(&(*lemin)->paths, count_paths);
 		(*lemin)->paths = new_path;
 		count_paths++;
-		print_paths((*lemin)->paths, (*lemin)->rooms, count_paths);
+		//print_paths((*lemin)->paths, (*lemin)->rooms, count_paths);
 		(*lemin)->rooms = set_null_distance((*lemin)->rooms, count_rooms);
 		new_path = get_new_paths((*lemin)->rooms, count_rooms, count_paths);
-		ft_putnbr(count_paths);
-		ft_putchar('\n');
+
 	}
 }
