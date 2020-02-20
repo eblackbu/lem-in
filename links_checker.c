@@ -13,6 +13,7 @@ t_room			*set_info_links(t_room *rooms, t_roomlist *list, int count_rooms)
 		rooms[i].name = tmp->room->name;
 		rooms[i].bfs_lvl = tmp->room->bfs_lvl;
 		rooms[i].dist = rooms[i].bfs_lvl != 0 ? MAX_INT : 0;
+		rooms[i].in_use = 0;
 		rooms[i].links = NULL;
 		rooms[i].prev = NULL;
 		rooms[i].next = NULL;

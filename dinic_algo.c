@@ -2,25 +2,6 @@
 
 int			add_children_layers(t_room **rooms, int count_rooms, int roomnum)
 {
-	/*
-	int 	j;
-	int 	flag;
-
-	j = 0;
-	flag = 0;
-	while (j < count_rooms)
-	{
-		if ((*rooms)[roomnum].edges[j].link)
-		{
-			if ((*rooms)[j].bfs_lvl == -1) //Если вершина еще не была посещена
-			{
-				(*rooms)[j].bfs_lvl = (*rooms)[roomnum].bfs_lvl + 1;
-				flag = 1;
-			}
-		}
-		j++;
-	}
-	 */
 	int 	flag;
 	t_link	*tmp;
 
@@ -40,22 +21,6 @@ int			add_children_layers(t_room **rooms, int count_rooms, int roomnum)
 
 int			get_first_path_length(t_room *rooms, int count_rooms)
 {
-	/*
-	int 	end;
-	int 	len;
-	int		i;
-
-	i = 0;
-	len = MAX_INT - 1;
-	end = get_end_room(rooms, count_rooms);
-	while (i < count_rooms)
-	{
-		if (rooms[end].edges[i].link && rooms[i].bfs_lvl < len && rooms[i].bfs_lvl != -1)
-			len = rooms[i].bfs_lvl + 1;
-		i++;
-	}
-	*/
-
 	int		len;
 	int 	tmp_room;
 	t_link	*tmp;

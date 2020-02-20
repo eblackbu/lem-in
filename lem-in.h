@@ -29,7 +29,6 @@ typedef struct		s_room
 	int				dist;
 	int				bfs_lvl;
 	int				in_use;
-	//t_edge			*edges;
 	t_link			*links;
 	struct s_room	*prev;
 	struct s_room	*next;

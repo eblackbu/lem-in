@@ -128,9 +128,7 @@ void			get_another_paths(t_lemin **lemin, int count_rooms)
 		del_all_paths(&(*lemin)->paths, count_paths);
 		(*lemin)->paths = new_path;
 		count_paths++;
-		//print_paths((*lemin)->paths, (*lemin)->rooms, count_paths);
 		(*lemin)->rooms = set_null_distance((*lemin)->rooms, count_rooms);
 		new_path = get_new_paths((*lemin)->rooms, count_rooms, count_paths);
-
 	}
 }

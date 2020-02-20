@@ -37,7 +37,8 @@ int 		switch_links(t_path *path, t_room *rooms, int count_rooms)
 			rooms = set_neg_weight(rooms, path->roomnum_path[i].roomnum, first);
 		else
 			rooms = set_neg_weight(rooms, path->roomnum_path[i].roomnum, path->roomnum_path[i - 1].roomnum);
-		//print_links(rooms, count_rooms);
+		if (i != path->length - 1)
+			rooms[path->roomnum_path[i].roomnum].in_use = 1;
 		i++;
 	}
 	return (1);
