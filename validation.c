@@ -1,8 +1,5 @@
 #include "lem-in.h"
 
-/*
- * Проверка на муравьев в первой строке
- */
 long long		check_ants(void)
 {
 	long long	ants;
@@ -26,11 +23,31 @@ long long		check_ants(void)
 	return (ants);
 }
 
-/*
- * Проверяем количество муравьев, записываем в структуру. Проверяем всю карту, если возвращено не NULL,
- * значит карта валидна на этапе файла (проверено, что нет совпадающих вершин, нет одинаковых связей,
- * есть начальная и конечная вершина, но не проверено, есть ли путь до конечной вершины)
- */
+char 			*get_rooms(t_roomlist **map)
+{
+	int			start_end;
+	char 		*line;
+
+	start_end = 0;
+	line = NULL;
+	if (get_next_line(0, &line) < 1)
+		exit(-1);
+	while (check_roomline(line))
+	{
+		if (line[0] == '#')
+			start_end = get_start_end(line);
+		else
+		{
+			add_new_room(map, line, start_end);
+			start_end = 0;
+		}
+		ft_strdel(&line);
+		if (get_next_line(0, &line) < 1)
+			break ;
+	}
+	return (line);
+}
+
 t_lemin			*validation(void)
 {
 	t_lemin		*lemin;

@@ -1,8 +1,5 @@
 #include "lem-in.h"
 
-/*
- * Проверка на число
- */
 int				is_number(char *line)
 {
 	char 	*val;
@@ -37,9 +34,6 @@ int				is_second_number(char *line)
 	}
 }
 
-/*
- * Подсчет количества пробелов в строке
- */
 int 			count_spaces(char *roomline)
 {
 	int 	n;
@@ -56,9 +50,6 @@ int 			count_spaces(char *roomline)
 	return (count);
 }
 
-/*
- * Проверка, является ли строка комментарием либо строкой с комнатой
- */
 int				check_roomline(char *roomline)
 {
 	if (roomline[0] == '#')
@@ -71,9 +62,6 @@ int				check_roomline(char *roomline)
 	return (0);
 }
 
-/*
- * Проверка на комментарий, является ли следующая комната стартовой или конечной
- */
 int				get_start_end(char *line)
 {
 	if (!ft_strcmp(line, "##start"))
@@ -81,33 +69,4 @@ int				get_start_end(char *line)
 	else if (!ft_strcmp(line, "##end"))
 		return (END_ROOM);
 	return (0);
-}
-
-/*
- * Создается список комнат из исходного файла.
- * Как только встречается строка связи, она возвращается
- */
-char 			*get_rooms(t_roomlist **map)
-{
-	int			start_end;
-	char 		*line;
-
-	start_end = 0;
-	line = NULL;
-	if (get_next_line(0, &line) < 1)
-		exit(-1);
-	while (check_roomline(line))
-	{
-		if (line[0] == '#')
-			start_end = get_start_end(line);
-		else
-		{
-			add_new_room(map, line, start_end);
-			start_end = 0;
-		}
-		ft_strdel(&line);
-		if (get_next_line(0, &line) < 1)
-			break ;
-	}
-	return (line);
 }

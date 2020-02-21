@@ -67,7 +67,6 @@ t_path		*get_new_paths(t_room *rooms, int count_rooms, int count_paths)
 		flag = get_distance(&rooms, count_rooms);
 		i++;
 	}
-	//print_links(rooms, count_rooms);
 	if (rooms[end].dist != MAX_INT)
 		new_path = del_overused_edges(rooms, count_rooms, count_paths);
 	return (new_path);

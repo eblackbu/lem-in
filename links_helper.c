@@ -24,8 +24,6 @@ t_room		*del_link(t_room *rooms, int room_first, int room_where)
 		tmp_last = tmp;
 		tmp = tmp->next;
 	}
-	//if (!tmp)
-		//exit(-1);
 	if (tmp_last == tmp)
 		rooms[room_first].links = tmp->next;
 	else

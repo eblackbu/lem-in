@@ -16,20 +16,20 @@ void		del_roomlist(t_roomlist **map)
 	}
 }
 
-void 		del_all_links(t_room *room)
+void 		del_all_links(t_room room)
 {
 	t_link	*tmp;
 
-	tmp = room->links;
+	tmp = room.links;
 	while (tmp)
 	{
-		room->links = tmp->next;
+		room.links = tmp->next;
 		free(tmp);
-		tmp = room->links;
+		tmp = room.links;
 	}
 }
 
-void 		del_all_rooms(t_room **rooms, int count_rooms)
+void 		del_all_rooms(t_room *rooms, int count_rooms)
 {
 	int		i;
 
@@ -39,26 +39,26 @@ void 		del_all_rooms(t_room **rooms, int count_rooms)
 		del_all_links(rooms[i]);
 		i++;
 	}
-	free(*rooms);
+	free(rooms);
 }
 
-void		del_all_paths(t_path **paths, int count_paths)
+void		del_all_paths(t_path *paths, int count_paths)
 {
 	int 	i;
 
 	i = 0;
 	while (i < count_paths)
 	{
-		free((*paths)[i].roomnum_path);
+		free(paths[i].roomnum_path);
 		i++;
 	}
-	free(*paths);
+	free(paths);
 }
 
 void		free_all(t_lemin *lemin, int count_rooms, int count_paths)
 {
 	del_roomlist(&lemin->list);
-	del_all_rooms(&lemin->rooms, count_rooms);
-	del_all_paths(&lemin->paths, count_paths);
+	del_all_rooms(lemin->rooms, count_rooms);
+	del_all_paths(lemin->paths, count_paths);
 	free(lemin);
 }

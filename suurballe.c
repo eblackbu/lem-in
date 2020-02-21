@@ -1,29 +1,4 @@
 #include "lem-in.h"
-//TODO Беллман-Форд. Пройтись по всем комнатам, в каждой комнате смотреть каждую связь.
-// Если связь есть, смотреть в переменную distance и обновлять, если distance больше чем путь до пред вершины + 1
-
-int				get_last_room(t_room *rooms, int count_rooms, int end)
-{
-	t_link		*tmp;
-
-	/*
-	i = 0;
-	while (i < count_rooms)
-	{
-		if (rooms[end].edges[i].link && rooms[i].edges[end].link && rooms[i].dist == rooms[end].dist - 1)
-			return (i);
-		i++;
-	}
-	*/
-	tmp = rooms[end].links;
-	while (tmp)
-	{
-		if (rooms[tmp->roomnum].dist == rooms[end].dist - 1)
-			return (tmp->roomnum);
-		tmp = tmp->next;
-	}
-	exit(-1);
-}
 
 t_path			*set_new_paths(t_room *rooms, int count_rooms, int count_paths, int end_room)
 {
@@ -50,21 +25,6 @@ t_path			*set_new_paths(t_room *rooms, int count_rooms, int count_paths, int end
 	return (paths);
 }
 
-/*
-t_room			*find_negative_edge(t_room *rooms, int count_rooms, int roomnum)
-{
-	int 		i;
-
-	i = 0;
-	while (i < count_rooms)
-	{
-		if (rooms[roomnum].edges[i].weight == -1)
-			return (&rooms[i]);
-		i++;
-	}
-	exit(-1);
-}
-*/
 t_room			*set_neg_weight(t_room *rooms, int next_room, int prev_room)
 {
 	t_link		*tmp;
@@ -99,21 +59,9 @@ t_path 			*del_overused_edges(t_room *rooms, int count_rooms, int count_paths)
 			rooms[tmp_room].next = rooms[tmp_room].new_next;
 		}
 		else
-		{
 			rooms = del_link(rooms, last_room, tmp_room);
-			/*
-			rooms[tmp_room].edges[last_room].weight = 0;
-			rooms[tmp_room].edges[last_room].link = 0;
-			 */
-		}
-		//print_links(rooms, count_rooms);
 	}
-
 	return (set_new_paths(rooms, count_rooms, count_paths, end_room));
-	/*
-	 * количество однонаправленных узлов из конечной вершины - количество новых путей.
-	 *
-	 */
 }
 
 void			get_another_paths(t_lemin **lemin, int count_rooms, int *count_paths)
@@ -131,12 +79,12 @@ void			get_another_paths(t_lemin **lemin, int count_rooms, int *count_paths)
 		tmp_count_paths++;
 		if (is_better_solution(new_path, tmp_count_paths, (int)(*lemin)->count_ants, &solu_length))
 		{
-			del_all_paths(&(*lemin)->paths, *count_paths);
+			del_all_paths((*lemin)->paths, *count_paths);
 			(*lemin)->paths = new_path;
 			*count_paths = tmp_count_paths;
 		}
 		else
-			del_all_paths(&new_path, tmp_count_paths);
+			del_all_paths(new_path, tmp_count_paths);
 		(*lemin)->rooms = set_null_distance((*lemin)->rooms, count_rooms);
 		new_path = get_new_paths((*lemin)->rooms, count_rooms, tmp_count_paths);
 	}

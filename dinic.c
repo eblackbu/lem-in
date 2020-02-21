@@ -1,6 +1,6 @@
 #include "lem-in.h"
 
-int			add_children_layers(t_room **rooms, int count_rooms, int roomnum)
+int			add_children_layers(t_room **rooms, int roomnum)
 {
 	int 	flag;
 	t_link	*tmp;
@@ -87,7 +87,7 @@ t_path		*get_first_path(t_lemin *lemin, int count_rooms, int layer)
 	while (j < count_rooms)
 	{
 		if (lemin->rooms[j].bfs_lvl == layer)
-			flag += add_children_layers(&lemin->rooms, count_rooms, j);
+			flag += add_children_layers(&lemin->rooms, j);
 		j++;
 	}
 	if (flag)

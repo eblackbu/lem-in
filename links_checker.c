@@ -38,17 +38,6 @@ int 			set_link(int i, int j, t_room *rooms)
 {
 	rooms[i].links = add_new_link(rooms[i].links, 1, j);
 	rooms[j].links = add_new_link(rooms[j].links, 1, i);
-	/*
-	if (rooms[i].edges[j].link == 1 || rooms[j].edges[i].link == 1 )
-	{
-		ft_putendl_fd("ERROR", 2);
-		exit(-1);
-	}
-	rooms[i].edges[j].link = 1;
-	rooms[i].edges[j].weight = 1;
-	rooms[j].edges[i].link = 1;
-	rooms[j].edges[i].weight = 1;
-	 */
 	return (1);
 }
 
