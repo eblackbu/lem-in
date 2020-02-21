@@ -86,29 +86,3 @@ void		print_solution(t_lemin *lemin, long long count_ants, int count_rooms, int 
 	}
 	//TODO free_all
 }
-
-void		sort_paths(t_path **paths, int count_paths)//TODO изменить на нормальную сортировку
-{
-	t_path	tmp;
-	int		i;
-	int		flag;
-
-	i = 0;
-	flag = 0;
-	while (i < count_paths - 1)
-	{
-		if ((*paths)[i].length > (*paths)[i + 1].length)
-		{
-			tmp = (*paths)[i];
-			(*paths)[i] = (*paths)[i + 1];
-			(*paths)[i + 1] = tmp;
-			flag++;
-		}
-		i++;
-		if (i == count_paths - 1 && flag)
-		{
-			i = 0;
-			flag = 0;
-		}
-	}
-}

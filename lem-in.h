@@ -97,7 +97,7 @@ t_ant					*get_roomnumpath_suur(t_room *rooms, int count_rooms, int last_room, i
 */
 t_room					*set_neg_weight(t_room *rooms, int next_room, int prev_room);
 t_path					*del_overused_edges(t_room *rooms, int count_rooms, int count_paths);
-void get_another_paths(t_lemin **lemin, int count_rooms);
+void					get_another_paths(t_lemin **lemin, int count_rooms, int *count_paths);
 
 /*
 ** initialize_room.c
@@ -162,7 +162,14 @@ void					free_all(t_lemin *lemin, int count_rooms, int count_paths);
 /*
 ** print_helper.c
 */
+int						is_fast_path(t_path *paths, long long count_ants, int path_val);
 void					print_solution(t_lemin *lemin, long long count_ants, int count_rooms, int count_paths);
+
+
+/*
+** paths_helper.c
+*/
+int						is_better_solution(t_path *paths, int count_paths, int count_ants, int *prev_solu);
 void					sort_paths(t_path **paths, int count_paths);
 
 /*

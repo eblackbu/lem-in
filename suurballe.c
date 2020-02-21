@@ -116,23 +116,29 @@ t_path 			*del_overused_edges(t_room *rooms, int count_rooms, int count_paths)
 	 */
 }
 
-void			get_another_paths(t_lemin **lemin, int count_rooms)
+void			get_another_paths(t_lemin **lemin, int count_rooms, int *count_paths)
 {
 	t_path		*new_path;
-	int 		count_paths;
+	int 		solu_length;
+	int 		tmp_count_paths;
 
-	count_paths = 1;
-	new_path = get_new_paths((*lemin)->rooms, count_rooms, count_paths);//Bellman-Ford
-	while ((*lemin)->count_ants > count_paths && new_path)
+	*count_paths = 1;
+	tmp_count_paths = 1;
+	solu_length = (*lemin)->paths[0].length + (int)(*lemin)->count_ants - 1;
+	new_path = get_new_paths((*lemin)->rooms, count_rooms, tmp_count_paths);
+	while ((int)(*lemin)->count_ants > tmp_count_paths && new_path)
 	{
-		//if () TODO условие на замену существующих путей
-		//{
-			del_all_paths(&(*lemin)->paths, count_paths);
+		tmp_count_paths++;
+		if (is_better_solution(new_path, tmp_count_paths, (int)(*lemin)->count_ants, &solu_length))
+		{
+			del_all_paths(&(*lemin)->paths, *count_paths);
 			(*lemin)->paths = new_path;
-		//}
-		count_paths++;
+			*count_paths = tmp_count_paths;
+		}
+		else
+			del_all_paths(&new_path, tmp_count_paths);
 		(*lemin)->rooms = set_null_distance((*lemin)->rooms, count_rooms);
-		new_path = get_new_paths((*lemin)->rooms, count_rooms, count_paths);
+		new_path = get_new_paths((*lemin)->rooms, count_rooms, tmp_count_paths);
 	}
-	sort_paths(&(*lemin)->paths, count_paths);
+	sort_paths(&(*lemin)->paths, *count_paths);
 }
