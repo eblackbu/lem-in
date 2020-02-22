@@ -34,7 +34,7 @@ int				is_second_number(char *line)
 	}
 }
 
-int 			count_spaces(char *roomline)
+int 			count_spaces(const char *roomline)
 {
 	int 	n;
 	int		count;
@@ -56,7 +56,8 @@ int				check_roomline(char *roomline)
 		return (1);
 	if (count_spaces(roomline) == 2)
 	{
-		if (is_number(&ft_strchr(roomline, ' ')[1]) && is_second_number(&ft_strrchr(roomline, ' ')[1]) && roomline[0] != 'L')
+		if (is_number(&ft_strchr(roomline, ' ')[1]) && \
+		is_second_number(&ft_strrchr(roomline, ' ')[1]) && roomline[0] != 'L')
 			return (1);
 	}
 	return (0);

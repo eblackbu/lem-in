@@ -1,6 +1,7 @@
 #include "lem-in.h"
 
-int 		is_better_solution(t_path *paths, int count_paths, int count_ants, int *prev_solu)
+int 		is_better_solution(t_path *paths, int count_paths, \
+								int count_ants, int *prev_solu)
 {
 	int 	i;
 	int 	new_solu;
@@ -12,10 +13,11 @@ int 		is_better_solution(t_path *paths, int count_paths, int count_ants, int *pr
 		new_solu += paths[i].length;
 		i++;
 	}
-	new_solu += count_ants - 1;
-	if (new_solu / count_paths < *prev_solu)
+	new_solu += count_ants - i;
+	new_solu = new_solu / count_paths;
+	if (new_solu < *prev_solu)
 	{
-		*prev_solu = new_solu / count_paths;
+		*prev_solu = new_solu;
 		return (1);
 	}
 	return (0);
@@ -76,6 +78,6 @@ void 			print_paths(t_path *paths, t_room *rooms, int count_paths)
 			j++;
 		}
 		i++;
-		ft_putchar('\n');
+		ft_putstr("\n\n");
 	}
 }

@@ -36,6 +36,12 @@ void 			print_links(t_room *rooms, int count_rooms)
 }
 */
 
+void	error_exit(void)
+{
+	ft_putendl_fd("ERROR", 2);
+	exit(-1);
+}
+
 int		main(int ac, char **av)
 {
 	t_lemin		*lemin;

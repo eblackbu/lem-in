@@ -41,7 +41,7 @@ typedef struct			s_ant
 {
 	int					is_ant_here;
 	int					roomnum;
-	long long			antnum;
+	int					antnum;
 }						t_ant;
 
 typedef struct			s_path
@@ -52,7 +52,7 @@ typedef struct			s_path
 
 typedef struct 			s_lemin
 {
-	long long			count_ants; //TODO выяснить, какое максимальное значение муравьев
+	int					count_ants;
 	t_roomlist			*list;
 	t_room				*rooms;
 	t_path				*paths;
@@ -106,7 +106,7 @@ t_room					*init_room(int num, char *roomline, int start_end);
 t_room					*set_info_links(t_room *links, t_roomlist *list, int count_rooms);
 t_room					*init_links(int count_rooms, t_roomlist *list);
 int						set_link(int i, int j, t_room *map);
-int						check_link(t_lemin **lemin, char *linkline, int count_rooms);
+int						check_link(t_lemin **lemin, char *link, int count_rooms);
 
 /*
 ** links_helper.c
@@ -125,6 +125,13 @@ void					get_links(t_lemin **lemin, char *linkline);
 void					check_map(t_lemin **lemin);
 
 /*
+** norme_helper.c
+*/
+
+int						calc_first_step(t_lemin **lemin, int path_val, int i, int all_ants);
+int						calc_step(t_lemin **lemin, int path_val, int i);
+
+/*
 ** paths_helper.c
 */
 int						is_better_solution(t_path *paths, int count_paths, int count_ants, int *prev_solu);
@@ -135,11 +142,11 @@ void 					print_paths(t_path *paths, t_room *rooms, int count_paths);
 /*
 ** print_helper.c
 */
-int						is_fast_path(t_path *paths, long long count_ants, int path_val);
-int						print_ant_move(t_path path, t_room *graph, int room, int flag_space);
-int						make_step(t_lemin *lemin, int count_paths, long long all_ants);
-int						make_pathstep(t_lemin **lemin, int path_val, long long all_ants, int flag_space);
-void					print_solution(t_lemin *lemin, long long count_ants, int count_paths);
+int						is_fast_path(t_path *paths, int count_ants, int path_val);
+int						print_ant_move(t_path path, t_room *graph, int room, int *flag_space);
+int						make_step(t_lemin *lemin, int count_paths, int all_ants);
+int						make_pathstep(t_lemin **lemin, int path_val, int all_ants, int flag_space);
+void					print_solution(t_lemin *lemin, int count_ants, int count_paths);
 
 /*
 ** roomlist_helper.c
@@ -152,7 +159,7 @@ void					add_new_room(t_roomlist **map, char *line, int start_end);
 */
 int						is_number(char *line);
 int						is_second_number(char *line);
-int 					count_spaces(char *roomline);
+int 					count_spaces(const char *roomline);
 int						check_roomline(char *roomline);
 int						get_start_end(char *line);
 
@@ -167,13 +174,13 @@ void					get_another_paths(t_lemin **lemin, int count_rooms, int *count_paths);
 /*
 ** suurballe_helper.c
 */
-int						get_len_suur(t_room *rooms, int count_rooms, int last_room, int end_room);
+int get_len_suur(t_room *rooms, int last_room);
 t_ant					*get_roomnumpath_suur(t_room *rooms, int count_rooms, int last_room, int len);
 
 /*
 ** validation.c
 */
-long long				check_ants(void);
+int check_ants(void);
 char					*get_rooms(t_roomlist **list);
 t_lemin					*validation(void);
 
@@ -182,5 +189,6 @@ t_lemin					*validation(void);
  */
 void					print_links(t_room *rooms, int count_rooms);
 int 					get_count_paths(t_room *rooms, int count_rooms);
+void					error_exit(void);
 
 #endif

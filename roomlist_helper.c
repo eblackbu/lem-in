@@ -10,10 +10,7 @@ int			check_nameplace(t_roomlist **map, char *name, int x, int y)
 		while (tmp->next)
 		{
 			if (!ft_strcmp(name, tmp->room->name) || (x == tmp->room->x && y == tmp->room->y))
-			{
-				ft_putstr_fd("ERROR\n", 2);
-				exit(-1);
-			}
+				error_exit();
 			tmp = tmp->next;
 		}
 	}

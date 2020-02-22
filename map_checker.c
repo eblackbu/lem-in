@@ -50,25 +50,15 @@ void			get_links(t_lemin **lemin, char *linkline)
 			break ;
 	}
 	if (!check_start_end((*lemin)->rooms, count_rooms))
-	{
-		ft_putendl_fd("ERROR", 2);
-		exit(-1);
-	}
+		error_exit();
 }
 
-/*
- * Создается список комнат и записывается информация о связях в матрицу смежности. Get_rooms возвращает первую строку,
- * которая не комментарий и не комната (строка со связью, в валидном варианте).
- */
 void			check_map(t_lemin **lemin)
 {
 	char 			*first_link;
 
 	(*lemin)->list = NULL;
 	if (!(first_link = get_rooms(&(*lemin)->list)))
-	{
-		ft_putendl_fd("ERROR", 2);
-		exit(-1);
-	}
+		error_exit();
 	get_links(lemin, first_link);
 }

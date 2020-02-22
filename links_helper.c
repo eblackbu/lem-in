@@ -50,12 +50,13 @@ t_link 		*add_new_link(t_link *links, int weight, int room)
 	t_link	*tmp_next;
 
 	tmp_next = links;
+	tmp_last = NULL;
 	while (tmp_next)
 	{
 		tmp_last = tmp_next;
 		tmp_next = tmp_next->next;
 	}
-	if (!links)
+	if (!tmp_last)
 		links = new_link(weight, room);
 	else
 	{

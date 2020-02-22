@@ -35,7 +35,7 @@ int			get_first_path_length(t_room *rooms, int count_rooms)
 		tmp = tmp->next;
 	}
 	if (len == MAX_INT - 1)
-		exit(-1);
+		error_exit();
 	return (len);
 }
 

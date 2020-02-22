@@ -1,6 +1,6 @@
 #include "lem-in.h"
 
-int			get_len_suur(t_room *rooms, int count_rooms, int last_room, int end_room)
+int 		get_len_suur(t_room *rooms, int last_room)
 {
 	int		len;
 
@@ -13,7 +13,8 @@ int			get_len_suur(t_room *rooms, int count_rooms, int last_room, int end_room)
 	return (len);
 }
 
-t_ant		*get_roomnumpath_suur(t_room *rooms, int count_rooms, int last_room, int len)
+t_ant		*get_roomnumpath_suur(t_room *rooms, int count_rooms, \
+									int last_room, int len)
 {
 	t_ant	*roompath;
 	int		i;

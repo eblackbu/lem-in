@@ -41,30 +41,25 @@ int 			set_link(int i, int j, t_room *rooms)
 	return (1);
 }
 
-int				check_link(t_lemin **lemin, char *linkline, int count_rooms)
+int				check_link(t_lemin **lemin, char *link, int count_rooms)
 {
 	int 		i;
 	int 		j;
 	size_t 		len;
 
 	i = 0;
-	if (linkline[0] == '#')
+	if (link[0] == '#' && ft_strcmp(link, "##start") \
+		&& ft_strcmp(link, "##end"))
 		return (1);
-	while (i < count_rooms && ft_strcmp(linkline, (*lemin)->rooms[i].name) != '-')
+	while (i < count_rooms && ft_strcmp(link, (*lemin)->rooms[i].name) != '-')
 		i++;
 	if (i == count_rooms)
-	{
-		ft_putendl_fd("ERROR", 2);
-		exit(-1);
-	}
+		error_exit();
 	j = 0;
 	len = ft_strlen((*lemin)->rooms[i].name) + 1;
-	while (j < count_rooms && ft_strcmp(&linkline[len], (*lemin)->rooms[j].name))
+	while (j < count_rooms && ft_strcmp(&link[len], (*lemin)->rooms[j].name))
 		j++;
 	if (j == count_rooms)
-	{
-		ft_putendl_fd("ERROR", 2);
-		exit(-1);
-	}
+		error_exit();
 	return (set_link(i, j, (*lemin)->rooms));
 }

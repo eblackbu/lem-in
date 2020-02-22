@@ -1,16 +1,13 @@
 #include "lem-in.h"
 
-long long		check_ants(void)
+int				check_ants(void)
 {
-	long long	ants;
+	int			ants;
 	char 		*line;
 	char 		*number;
 
 	if (get_next_line(0, &line) < 1)
-	{
-		ft_putstr_fd("ERROR\n", 2);// когда писать error?
-		exit(-1);
-	}
+		error_exit();
 	number = ft_itoa(ft_atoi(line));
 	if (!ft_strcmp(line, number) && ft_strcmp(line, "0"))
 		ants = ft_atoi(line);
@@ -19,7 +16,7 @@ long long		check_ants(void)
 	ft_strdel(&line);
 	ft_strdel(&number);
 	if (ants <= 0)
-		exit(-1);
+		error_exit();
 	return (ants);
 }
 
@@ -45,6 +42,8 @@ char 			*get_rooms(t_roomlist **map)
 		if (get_next_line(0, &line) < 1)
 			break ;
 	}
+	if (start_end)
+		error_exit();
 	return (line);
 }
 
@@ -59,8 +58,5 @@ t_lemin			*validation(void)
 	if (lemin->list)
 		return(lemin);
 	else
-	{
-		ft_putendl_fd("ERROR", 2);// когда писать error?
-		exit(-1);
-	}
+		error_exit();
 }

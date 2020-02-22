@@ -1,6 +1,6 @@
 #include "lem-in.h"
 
-int			is_fast_path(t_path *paths, long long count_ants, int path_val)
+int			is_fast_path(t_path *paths, int count_ants, int path_val)
 {
 	int 	i;
 	int		len;
@@ -17,49 +17,45 @@ int			is_fast_path(t_path *paths, long long count_ants, int path_val)
 	return (count_ants > len ? 1 : 0);
 }
 
-int		print_ant_move(t_path path, t_room *graph, int room, int flag_space)
+int			print_ant_move(t_path path, t_room *graph, int room, int *flag_space)
 {
-	if (flag_space)
+	if (*flag_space)
 		ft_putchar(' ');
 	ft_putchar('L');
-	ft_putnbr((int)path.roomnum_path[room].antnum);
+	ft_putnbr(path.roomnum_path[room].antnum);
 	ft_putchar('-');
 	ft_putstr(graph[path.roomnum_path[room].roomnum].name);
+	*flag_space += 1;
 	return (1);
 }
 
-int			make_pathstep(t_lemin **lemin, int path_val, long long all_ants, int flag_space)
+int			make_pathstep(t_lemin **lemin, int path_val, \
+						int all_ants, int flag_space)//TODO norme
 {
 	int		i;
 	int		moves;
 
-	i = (*lemin)->paths[path_val].length - 1;//TODO передвинуть всех муравьев на один шаг и вывести на экран данные шаги
+	i = (*lemin)->paths[path_val].length - 1;
 	moves = 0;
 	while (i >= 0)
 	{
 		if (i == 0 && is_fast_path((*lemin)->paths, (*lemin)->count_ants, path_val))
 		{
-			(*lemin)->count_ants--;
-			(*lemin)->paths[path_val].roomnum_path[i].is_ant_here = 1;
-			(*lemin)->paths[path_val].roomnum_path[i].antnum = all_ants - (*lemin)->count_ants;
-			moves += print_ant_move((*lemin)->paths[path_val], (*lemin)->rooms, i, flag_space);
-			flag_space++;
+			calc_first_step(lemin, path_val, i, all_ants);
+			moves += print_ant_move((*lemin)->paths[path_val], (*lemin)->rooms, i, &flag_space);
 		}
 		else if (i && (*lemin)->paths[path_val].roomnum_path[i - 1].is_ant_here > 0 &&
 				 ((*lemin)->paths[path_val].roomnum_path[i].is_ant_here == 0 || i == (*lemin)->paths[path_val].length - 1))
 		{
-			(*lemin)->paths[path_val].roomnum_path[i - 1].is_ant_here = 0;
-			(*lemin)->paths[path_val].roomnum_path[i].is_ant_here = 1;
-			(*lemin)->paths[path_val].roomnum_path[i].antnum = (*lemin)->paths[path_val].roomnum_path[i - 1].antnum;
-			moves += print_ant_move((*lemin)->paths[path_val], (*lemin)->rooms, i, flag_space);
-			flag_space++;
+			calc_step(lemin, path_val, i);
+			moves += print_ant_move((*lemin)->paths[path_val], (*lemin)->rooms, i, &flag_space);
 		}
 		i--;
 	}
 	return (moves);
 }
 
-int			make_step(t_lemin *lemin, int count_paths, long long all_ants)
+int			make_step(t_lemin *lemin, int count_paths, int all_ants)
 {
 	int		i;
 	int		tmp_flag;
@@ -75,7 +71,7 @@ int			make_step(t_lemin *lemin, int count_paths, long long all_ants)
 	return (tmp_flag);
 }
 
-void		print_solution(t_lemin *lemin, long long count_ants, int count_paths)
+void		print_solution(t_lemin *lemin, int count_ants, int count_paths)
 {
 	int		count_moves;
 

@@ -1,6 +1,7 @@
 #include "lem-in.h"
 
-t_path			*set_new_paths(t_room *rooms, int count_rooms, int count_paths, int end_room)
+t_path			*set_new_paths(t_room *rooms, int count_rooms, \
+								int count_paths, int end_room)
 {
 	t_path		*paths;
 	t_link		*tmp;
@@ -15,9 +16,9 @@ t_path			*set_new_paths(t_room *rooms, int count_rooms, int count_paths, int end
 	{
 		if (tmp->weight == -1)
 		{
-			paths[i].length = get_len_suur(rooms, count_rooms, tmp->roomnum, end_room);
-			int a = paths[i].length;
-			paths[i].roomnum_path = get_roomnumpath_suur(rooms, count_rooms, tmp->roomnum, paths[i].length);
+			paths[i].length = get_len_suur(rooms, tmp->roomnum);
+			paths[i].roomnum_path = get_roomnumpath_suur(rooms, count_rooms,
+					tmp->roomnum, paths[i].length);
 			i++;
 		}
 		tmp = tmp->next;
@@ -72,12 +73,12 @@ void			get_another_paths(t_lemin **lemin, int count_rooms, int *count_paths)
 
 	*count_paths = 1;
 	tmp_count_paths = 1;
-	solu_length = (*lemin)->paths[0].length + (int)(*lemin)->count_ants - 1;
+	solu_length = (*lemin)->paths[0].length + (*lemin)->count_ants - 1;
 	new_path = get_new_paths((*lemin)->rooms, count_rooms, tmp_count_paths);
 	while ((int)(*lemin)->count_ants > tmp_count_paths && new_path)
 	{
 		tmp_count_paths++;
-		if (is_better_solution(new_path, tmp_count_paths, (int)(*lemin)->count_ants, &solu_length))
+		if (is_better_solution(new_path, tmp_count_paths, (*lemin)->count_ants, &solu_length))//TODO norme
 		{
 			del_all_paths((*lemin)->paths, *count_paths);
 			(*lemin)->paths = new_path;

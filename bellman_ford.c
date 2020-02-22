@@ -1,9 +1,5 @@
 #include "lem-in.h"
 
-/*
-** Если из комнаты, которая используется в пути, идет путь в комнату, которая еще не используется,
-** проверяется новая предыдущяя комната для используемой. Если та тоже используется - связь ставится.
-*/
 int			check_ifused_room(t_room *rooms, int room_from, int room_where)
 {
 	if (rooms[room_from].in_use && !rooms[room_where].in_use)
@@ -38,8 +34,9 @@ int			get_distance(t_room **rooms, int count_rooms)
 		tmp = (*rooms)[i].links;
 		while (tmp)
 		{
-			if ((*rooms)[tmp->roomnum].bfs_lvl != 0 && (*rooms)[i].dist != MAX_INT && \
-			(*rooms)[tmp->roomnum].dist > (*rooms)[i].dist + tmp->weight && check_ifused_room(*rooms, i, tmp->roomnum))
+			if ((*rooms)[tmp->roomnum].bfs_lvl != 0 && \
+(*rooms)[i].dist != MAX_INT && (*rooms)[tmp->roomnum].dist > \
+(*rooms)[i].dist + tmp->weight && check_ifused_room(*rooms, i, tmp->roomnum))
 			{
 				flag++;
 				set_distance(rooms, i, tmp->roomnum, tmp->weight);
