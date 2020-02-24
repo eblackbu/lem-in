@@ -1,10 +1,22 @@
-#include "lem-in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   paths_helper.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eblackbu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/24 12:27:21 by eblackbu          #+#    #+#             */
+/*   Updated: 2020/02/24 12:41:29 by eblackbu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int 		is_better_solution(t_path *paths, int count_paths, \
+#include "lem_in.h"
+
+int			is_better_solution(t_path *paths, int count_paths, \
 								int count_ants, int *prev_solu)
 {
-	int 	i;
-	int 	new_solu;
+	int		i;
+	int		new_solu;
 
 	i = 0;
 	new_solu = 0;
@@ -49,7 +61,7 @@ void		sort_paths(t_path **paths, int count_paths)
 	}
 }
 
-void			print_roomname(char *name, int num)
+void		print_roomname(char *name, int num)
 {
 	if (num == 0)
 		ft_putstr(": ");
@@ -58,11 +70,11 @@ void			print_roomname(char *name, int num)
 	ft_putstr(name);
 }
 
-void 			print_paths(t_path *paths, t_room *rooms, int count_paths)
+void		print_paths(t_path *paths, t_room *rooms, int count_paths)
 {
-	int 	i;
+	int		i;
 	int		j;
-	int 	len;
+	int		len;
 
 	i = 0;
 	len = 0;

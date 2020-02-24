@@ -1,8 +1,20 @@
-#include "lem-in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dinic.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eblackbu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/24 11:56:00 by eblackbu          #+#    #+#             */
+/*   Updated: 2020/02/24 12:40:20 by eblackbu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "lem_in.h"
 
 int			add_children_layers(t_room **rooms, int roomnum)
 {
-	int 	flag;
+	int		flag;
 	t_link	*tmp;
 
 	flag = 0;
@@ -22,7 +34,7 @@ int			add_children_layers(t_room **rooms, int roomnum)
 int			get_first_path_length(t_room *rooms, int count_rooms)
 {
 	int		len;
-	int 	tmp_room;
+	int		tmp_room;
 	t_link	*tmp;
 
 	len = MAX_INT - 1;
@@ -30,7 +42,8 @@ int			get_first_path_length(t_room *rooms, int count_rooms)
 	tmp = rooms[tmp_room].links;
 	while (tmp)
 	{
-		if (rooms[tmp->roomnum].bfs_lvl < len && rooms[tmp->roomnum].bfs_lvl != -1)
+		if (rooms[tmp->roomnum].bfs_lvl < len && \
+				rooms[tmp->roomnum].bfs_lvl != -1)
 			len = rooms[tmp->roomnum].bfs_lvl + 1;
 		tmp = tmp->next;
 	}
@@ -72,7 +85,8 @@ t_path		*set_first_path(t_room *rooms, int count_rooms)
 	if (!(path = (t_path*)malloc(sizeof(t_path))))
 		exit(-1);
 	path->length = get_first_path_length(rooms, count_rooms);
-	path->roomnum_path = get_first_roomnum_path(rooms, count_rooms, path->length);
+	path->roomnum_path = get_first_roomnum_path(rooms, count_rooms, \
+			path->length);
 	switch_links(path, rooms, count_rooms);
 	return (path);
 }
@@ -80,7 +94,7 @@ t_path		*set_first_path(t_room *rooms, int count_rooms)
 t_path		*get_first_path(t_lemin *lemin, int count_rooms, int layer)
 {
 	int		j;
-	int 	flag;
+	int		flag;
 
 	j = 0;
 	flag = 0;

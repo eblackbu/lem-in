@@ -1,4 +1,16 @@
-#include "lem-in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_all.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eblackbu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/24 11:57:24 by eblackbu          #+#    #+#             */
+/*   Updated: 2020/02/24 12:40:30 by eblackbu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "lem_in.h"
 
 void		del_roomlist(t_roomlist **map)
 {
@@ -16,7 +28,7 @@ void		del_roomlist(t_roomlist **map)
 	}
 }
 
-void 		del_all_links(t_room room)
+void		del_all_links(t_room room)
 {
 	t_link	*tmp;
 
@@ -29,7 +41,7 @@ void 		del_all_links(t_room room)
 	}
 }
 
-void 		del_all_rooms(t_room *rooms, int count_rooms)
+void		del_all_rooms(t_room *rooms, int count_rooms)
 {
 	int		i;
 
@@ -44,7 +56,7 @@ void 		del_all_rooms(t_room *rooms, int count_rooms)
 
 void		del_all_paths(t_path *paths, int count_paths)
 {
-	int 	i;
+	int		i;
 
 	i = 0;
 	while (i < count_paths)

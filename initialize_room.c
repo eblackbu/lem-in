@@ -1,8 +1,20 @@
-#include "lem-in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   initialize_room.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eblackbu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/24 11:58:13 by eblackbu          #+#    #+#             */
+/*   Updated: 2020/02/24 12:40:40 by eblackbu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "lem_in.h"
 
 char		*get_name(char *roomline)
 {
-	char 	*name;
+	char	*name;
 	int		n;
 
 	n = 0;
@@ -13,7 +25,7 @@ char		*get_name(char *roomline)
 	return (name);
 }
 
-int 		get_coordinate_x(char *roomline)
+int			get_coordinate_x(char *roomline)
 {
 	int		n;
 
@@ -23,7 +35,7 @@ int 		get_coordinate_x(char *roomline)
 	return (ft_atoi(&roomline[n + 1]));
 }
 
-int 		get_coordinate_y(char *roomline)
+int			get_coordinate_y(char *roomline)
 {
 	int		n;
 

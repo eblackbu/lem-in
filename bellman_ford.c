@@ -1,4 +1,16 @@
-#include "lem-in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bellman_ford.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eblackbu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/24 11:55:46 by eblackbu          #+#    #+#             */
+/*   Updated: 2020/02/24 12:40:07 by eblackbu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "lem_in.h"
 
 int			check_ifused_room(t_room *rooms, int room_from, int room_where)
 {
@@ -59,12 +71,12 @@ t_path		*get_new_paths(t_room *rooms, int count_rooms, int count_paths)
 	new_path = NULL;
 	end = get_end_room(rooms, count_rooms);
 	flag = 1;
-	while (flag && i < count_rooms)
+	while (flag && i < count_rooms + 1)
 	{
 		flag = get_distance(&rooms, count_rooms);
 		i++;
 	}
-	if (rooms[end].dist != MAX_INT)
+	if (i != count_rooms + 1 && rooms[end].dist != MAX_INT)
 		new_path = del_overused_edges(rooms, count_rooms, count_paths);
 	return (new_path);
 }

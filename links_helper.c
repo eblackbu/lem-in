@@ -1,15 +1,27 @@
-#include "lem-in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   links_helper.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eblackbu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/24 12:22:55 by eblackbu          #+#    #+#             */
+/*   Updated: 2020/02/24 12:24:03 by eblackbu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int 		get_weight_link(t_room *rooms, int room_first, int room_where)
+#include "lem_in.h"
+
+int			get_weight_link(t_room *rooms, int room_first, int room_where)
 {
 	t_link	*tmp;
 
 	tmp = rooms[room_first].links;
-	while (tmp->roomnum != room_where)
+	while (tmp && tmp->roomnum != room_where)
 		tmp = tmp->next;
 	if (!tmp)
-		exit(-1);
-	return(tmp->weight);
+		error_exit();
+	return (tmp->weight);
 }
 
 t_room		*del_link(t_room *rooms, int room_first, int room_where)
@@ -37,14 +49,14 @@ t_link		*new_link(int weight, int room)
 	t_link	*new;
 
 	if (!(new = (t_link*)malloc(sizeof(t_link))))
-		exit(-1);
+		error_exit();
 	new->roomnum = room;
 	new->weight = weight;
 	new->next = NULL;
 	return (new);
 }
 
-t_link 		*add_new_link(t_link *links, int weight, int room)
+t_link		*add_new_link(t_link *links, int weight, int room)
 {
 	t_link	*tmp_last;
 	t_link	*tmp_next;

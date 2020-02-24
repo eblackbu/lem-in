@@ -1,6 +1,18 @@
-#include "lem-in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   algo_helper.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eblackbu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/24 11:54:34 by eblackbu          #+#    #+#             */
+/*   Updated: 2020/02/24 12:39:59 by eblackbu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int		get_start_room(t_room *rooms, int count_rooms)
+#include "lem_in.h"
+
+int			get_start_room(t_room *rooms, int count_rooms)
 {
 	int		start;
 
@@ -12,7 +24,7 @@ int		get_start_room(t_room *rooms, int count_rooms)
 	return (start);
 }
 
-int		get_end_room(t_room *rooms, int count_rooms)
+int			get_end_room(t_room *rooms, int count_rooms)
 {
 	int		end;
 
@@ -24,10 +36,10 @@ int		get_end_room(t_room *rooms, int count_rooms)
 	return (end);
 }
 
-int 		switch_links(t_path *path, t_room *rooms, int count_rooms)
+int			switch_links(t_path *path, t_room *rooms, int count_rooms)
 {
-	int 	i;
-	int 	first;
+	int		i;
+	int		first;
 
 	i = 0;
 	first = get_start_room(rooms, count_rooms);
@@ -36,7 +48,8 @@ int 		switch_links(t_path *path, t_room *rooms, int count_rooms)
 		if (i == 0)
 			rooms = set_neg_weight(rooms, path->roomnum_path[i].roomnum, first);
 		else
-			rooms = set_neg_weight(rooms, path->roomnum_path[i].roomnum, path->roomnum_path[i - 1].roomnum);
+			rooms = set_neg_weight(rooms, path->roomnum_path[i].roomnum, \
+					path->roomnum_path[i - 1].roomnum);
 		if (i != path->length - 1)
 			rooms[path->roomnum_path[i].roomnum].in_use = 1;
 		i++;
@@ -57,4 +70,3 @@ t_room		*set_null_distance(t_room *rooms, int count_rooms)
 	}
 	return (rooms);
 }
-

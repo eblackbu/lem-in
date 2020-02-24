@@ -1,8 +1,20 @@
-#include "lem-in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rooms_checker.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eblackbu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/24 12:33:35 by eblackbu          #+#    #+#             */
+/*   Updated: 2020/02/24 12:41:59 by eblackbu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int				is_number(char *line)
+#include "lem_in.h"
+
+int			is_number(char *line)
 {
-	char 	*val;
+	char	*val;
 
 	val = ft_itoa(ft_atoi(line));
 	if (ft_strcmp(line, val) == 32)
@@ -17,9 +29,9 @@ int				is_number(char *line)
 	}
 }
 
-int				is_second_number(char *line)
+int			is_second_number(char *line)
 {
-	char 	*val;
+	char	*val;
 
 	val = ft_itoa(ft_atoi(line));
 	if (!ft_strcmp(line, val))
@@ -34,14 +46,14 @@ int				is_second_number(char *line)
 	}
 }
 
-int 			count_spaces(const char *roomline)
+int			count_spaces(const char *roomline)
 {
-	int 	n;
+	int		n;
 	int		count;
 
 	n = 0;
 	count = 0;
-	while(roomline[n])
+	while (roomline[n])
 	{
 		if (roomline[n] == ' ')
 			count++;
@@ -50,7 +62,7 @@ int 			count_spaces(const char *roomline)
 	return (count);
 }
 
-int				check_roomline(char *roomline)
+int			check_roomline(char *roomline)
 {
 	if (roomline[0] == '#')
 		return (1);
@@ -63,7 +75,7 @@ int				check_roomline(char *roomline)
 	return (0);
 }
 
-int				get_start_end(char *line)
+int			get_start_end(char *line)
 {
 	if (!ft_strcmp(line, "##start"))
 		return (START_ROOM);
