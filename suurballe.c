@@ -87,21 +87,27 @@ void			get_another_paths(t_lemin **lemin, int count_rooms,
 	*count_paths = 1;
 	tmp_count_paths = 1;
 	solu_length = (*lemin)->paths[0].length + (*lemin)->count_ants - 1;
+	//print_links_help((*lemin)->rooms, count_rooms);
 	new_path = get_new_paths((*lemin)->rooms, count_rooms, tmp_count_paths);
-	while ((int)(*lemin)->count_ants > tmp_count_paths && new_path)
+	//print_links_help((*lemin)->rooms, count_rooms);
+	//print_paths(new_path, (*lemin)->rooms, tmp_count_paths + 1);
+	while ((*lemin)->count_ants > tmp_count_paths && new_path)
 	{
 		tmp_count_paths++;
-		if (is_better_solution(new_path, tmp_count_paths,
-					(*lemin)->count_ants, &solu_length))
-		{
+	//	if (is_better_solution(new_path, tmp_count_paths,
+		//			(*lemin)->count_ants, &solu_length))
+		//{
 			del_all_paths((*lemin)->paths, *count_paths);
 			(*lemin)->paths = new_path;
 			*count_paths = tmp_count_paths;
-		}
-		else
-			del_all_paths(new_path, tmp_count_paths);
+	//	}
+		//else
+		//	del_all_paths(new_path, tmp_count_paths);
 		(*lemin)->rooms = set_null_distance((*lemin)->rooms, count_rooms);
 		new_path = get_new_paths((*lemin)->rooms, count_rooms, tmp_count_paths);
+		//print_links_help((*lemin)->rooms, count_rooms);
+		//if (new_path)
+		//	print_paths(new_path, (*lemin)->rooms, tmp_count_paths);
 	}
 	sort_paths(&(*lemin)->paths, *count_paths);
 }

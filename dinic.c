@@ -78,7 +78,7 @@ t_ant		*get_first_roomnum_path(t_room *rooms, int count_rooms, int len)
 	return (path);
 }
 
-t_path		*set_first_path(t_room *rooms, int count_rooms)
+t_path		*set_first_path(t_lemin *lemin, t_room *rooms, int count_rooms)
 {
 	t_path	*path;
 
@@ -87,6 +87,7 @@ t_path		*set_first_path(t_room *rooms, int count_rooms)
 	path->length = get_first_path_length(rooms, count_rooms);
 	path->roomnum_path = get_first_roomnum_path(rooms, count_rooms, \
 			path->length);
+	print_map(lemin, count_rooms);
 	switch_links(path, rooms, count_rooms);
 	return (path);
 }
@@ -107,5 +108,5 @@ t_path		*get_first_path(t_lemin *lemin, int count_rooms, int layer)
 	if (flag)
 		return (get_first_path(lemin, count_rooms, layer + 1));
 	else
-		return (set_first_path(lemin->rooms, count_rooms));
+		return (set_first_path(lemin, lemin->rooms, count_rooms));
 }

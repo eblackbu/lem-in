@@ -20,6 +20,8 @@ int			get_len_suur(t_room *rooms, int last_room)
 	while (rooms[last_room].bfs_lvl != 0)
 	{
 		last_room = rooms[last_room].prev->number;
+		if (rooms[last_room].bfs_lvl != MAX_INT)
+			rooms[last_room].in_use = 1;
 		len++;
 	}
 	return (len);

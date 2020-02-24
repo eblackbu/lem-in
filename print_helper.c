@@ -88,7 +88,7 @@ int			make_step(t_lemin *lemin, int count_paths, int all_ants)
 	return (tmp_flag);
 }
 
-void		print_solution(t_lemin *lemin, int count_ants, int count_paths)
+void		print_solution(t_lemin *lemin, int count_ants, int count_rooms, int count_paths)
 {
 	int		count_moves;
 
