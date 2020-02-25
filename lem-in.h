@@ -80,7 +80,7 @@ t_path					*get_new_paths(t_room *rooms, int count_rooms, int count_paths);
 int						add_children_layers(t_room **rooms, int roomnum);
 int						get_first_path_length(t_room *rooms, int count_rooms);
 t_ant					*get_first_roomnum_path(t_room *rooms, int count_rooms, int len);
-t_path					*set_first_path(t_room *rooms, int count_rooms);
+t_path					*set_first_path(t_lemin *lemin, int count_rooms);
 t_path					*get_first_path(t_lemin *lemin, int count_rooms, int layer);
 
 /*
@@ -174,7 +174,7 @@ void					get_another_paths(t_lemin **lemin, int count_rooms, int *count_paths);
 /*
 ** suurballe_helper.c
 */
-int get_len_suur(t_room *rooms, int last_room);
+int						get_len_suur(t_room *rooms, int last_room);
 t_ant					*get_roomnumpath_suur(t_room *rooms, int count_rooms, int last_room, int len);
 
 /*
@@ -191,4 +191,6 @@ void					print_links(t_room *rooms, int count_rooms);
 int 					get_count_paths(t_room *rooms, int count_rooms);
 void					error_exit(void);
 
+
+void					print_map(t_lemin *lemin, int count_rooms);
 #endif

@@ -29,6 +29,7 @@ t_ant		*get_roomnumpath_suur(t_room *rooms, int count_rooms, \
 		else
 		{
 			roompath[i].roomnum = last_room;
+			rooms[last_room].in_use = 1;
 			if (i > 0)
 				last_room = rooms[last_room].prev->number;
 		}

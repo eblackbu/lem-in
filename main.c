@@ -48,7 +48,7 @@ int		main(int ac, char **av)
 	int 		count_rooms;
 	int 		count_paths;
 
-	//freopen("/home/eblackbu/CLionProjects/lem-in/cmake-build-debug/test_map", "r", stdin);
+	//freopen("/home/eblackbu/CLionProjects/lem-in/maps/valid/big_sup/map_big_sup_1", "r", stdin);
 	lemin = validation();
 	lemin->paths = get_first_path(lemin, get_count_rooms(lemin->list), 0);
 	count_rooms = get_count_rooms(lemin->list);
@@ -59,4 +59,3 @@ int		main(int ac, char **av)
 	free_all(lemin, count_rooms, count_paths);
 	return (0);
 }
-
