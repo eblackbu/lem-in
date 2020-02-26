@@ -75,7 +75,7 @@ void			get_another_paths(t_lemin **lemin, int count_rooms, int *count_paths)
 	tmp_count_paths = 1;
 	solu_length = (*lemin)->paths[0].length + (*lemin)->count_ants - 1;
 	new_path = get_new_paths((*lemin)->rooms, count_rooms, tmp_count_paths);
-	while ((int)(*lemin)->count_ants > tmp_count_paths && new_path)
+	while ((*lemin)->count_ants > tmp_count_paths && new_path)
 	{
 		tmp_count_paths++;
 		if (is_better_solution(new_path, tmp_count_paths, (*lemin)->count_ants, &solu_length))//TODO norme

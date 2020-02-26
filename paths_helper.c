@@ -1,5 +1,25 @@
 #include "lem-in.h"
 
+int			is_dupl_path(t_path *paths, int count_paths)
+{
+	int		i;
+	int		j;
+
+	i = 1;
+	while (i < count_paths)
+	{
+		j = 0;
+		while (j < i)
+		{
+			if (paths[i].roomnum_path[0].roomnum == paths[j].roomnum_path[0].roomnum)
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
 int 		is_better_solution(t_path *paths, int count_paths, \
 								int count_ants, int *prev_solu)
 {
@@ -15,7 +35,7 @@ int 		is_better_solution(t_path *paths, int count_paths, \
 	}
 	new_solu += count_ants - i;
 	new_solu = new_solu / count_paths;
-	if (new_solu < *prev_solu)
+	if (!is_dupl_path(paths, count_paths) && new_solu < *prev_solu)
 	{
 		*prev_solu = new_solu;
 		return (1);
