@@ -35,7 +35,7 @@ int 		is_better_solution(t_path *paths, int count_paths, \
 	}
 	new_solu += count_ants - i;
 	new_solu = new_solu / count_paths;
-	if (!is_dupl_path(paths, count_paths) && new_solu < *prev_solu)
+	if (new_solu < *prev_solu)
 	{
 		*prev_solu = new_solu;
 		return (1);

@@ -4,7 +4,7 @@ int			check_ifused_room(t_room *rooms, int room_from, int room_where)
 {
 	if (rooms[room_from].in_use && !rooms[room_where].in_use)
 	{
-		if (rooms[room_from].new_prev && rooms[room_from].new_prev->in_use)
+		if (rooms[room_from].new_prev && rooms[room_from].new_prev->in_use && rooms[room_from].new_prev == rooms[room_from].prev)
 			return (1);
 		else
 			return (0);
