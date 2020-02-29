@@ -1,4 +1,16 @@
-#include "lem-in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   suurballe.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eblackbu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/29 13:43:29 by eblackbu          #+#    #+#             */
+/*   Updated: 2020/02/29 13:45:22 by eblackbu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "lem_in.h"
 
 t_path			*set_new_paths(t_room *rooms, int count_rooms, \
 								int count_paths, int end_room)
@@ -6,7 +18,6 @@ t_path			*set_new_paths(t_room *rooms, int count_rooms, \
 	t_path		*paths;
 	t_link		*tmp;
 	int			i;
-
 
 	i = 0;
 	if (!(paths = (t_path*)malloc(sizeof(t_path) * (count_paths + 1))))
@@ -40,11 +51,12 @@ t_room			*set_neg_weight(t_room *rooms, int next_room, int prev_room)
 	return (rooms);
 }
 
-t_path 			*del_overused_edges(t_room *rooms, int count_rooms, int count_paths)
+t_path			*del_overused_edges(t_room *rooms, int count_rooms, \
+									int count_paths)
 {
 	int			end_room;
 	int			tmp_room;
-	int 		last_room;
+	int			last_room;
 
 	end_room = get_end_room(rooms, count_rooms);
 	last_room = rooms[end_room].new_prev->number;
@@ -65,11 +77,12 @@ t_path 			*del_overused_edges(t_room *rooms, int count_rooms, int count_paths)
 	return (set_new_paths(rooms, count_rooms, count_paths, end_room));
 }
 
-void			get_another_paths(t_lemin **lemin, int count_rooms, int *count_paths)
+void			get_another_paths(t_lemin **lemin, int count_rooms, \
+									int *count_paths)
 {
 	t_path		*new_path;
-	int 		solu_length;
-	int 		tmp_count_paths;
+	int			solu_length;
+	int			tmp_count_paths;
 
 	*count_paths = 1;
 	tmp_count_paths = 1;
@@ -78,7 +91,8 @@ void			get_another_paths(t_lemin **lemin, int count_rooms, int *count_paths)
 	while ((*lemin)->count_ants > tmp_count_paths && new_path)
 	{
 		tmp_count_paths++;
-		if (is_better_solution(new_path, tmp_count_paths, (*lemin)->count_ants, &solu_length))//TODO norme
+		if (is_better_solution(new_path, tmp_count_paths, \
+					(*lemin)->count_ants, &solu_length))
 		{
 			del_all_paths((*lemin)->paths, *count_paths);
 			(*lemin)->paths = new_path;

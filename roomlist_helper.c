@@ -1,4 +1,16 @@
-#include "lem-in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   roomlist_helper.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eblackbu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/29 13:41:47 by eblackbu          #+#    #+#             */
+/*   Updated: 2020/02/29 13:42:24 by eblackbu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "lem_in.h"
 
 int			check_nameplace(t_roomlist **map, char *name, int x, int y)
 {
@@ -9,7 +21,8 @@ int			check_nameplace(t_roomlist **map, char *name, int x, int y)
 	{
 		while (tmp->next)
 		{
-			if (!ft_strcmp(name, tmp->room->name) || (x == tmp->room->x && y == tmp->room->y))
+			if (!ft_strcmp(name, tmp->room->name) || \
+				(x == tmp->room->x && y == tmp->room->y))
 				error_exit();
 			tmp = tmp->next;
 		}
@@ -17,7 +30,7 @@ int			check_nameplace(t_roomlist **map, char *name, int x, int y)
 	return (1);
 }
 
-void 		add_new_room(t_roomlist **map, char *line, int start_end)
+void		add_new_room(t_roomlist **map, char *line, int start_end)
 {
 	int			num;
 	t_roomlist	*tmp_last;
@@ -38,6 +51,6 @@ void 		add_new_room(t_roomlist **map, char *line, int start_end)
 		*map = tmp_map;
 	else
 		tmp_last->next = tmp_map;
-	check_nameplace(map, tmp_map->room->name, tmp_map->room->x, tmp_map->room->y);
+	check_nameplace(map, tmp_map->room->name, \
+					tmp_map->room->x, tmp_map->room->y);
 }
-

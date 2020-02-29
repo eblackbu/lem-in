@@ -1,4 +1,16 @@
-#include "lem-in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eblackbu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/29 13:41:05 by eblackbu          #+#    #+#             */
+/*   Updated: 2020/02/29 13:41:36 by eblackbu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "lem_in.h"
 
 void	print_room(t_room *room)
 {
@@ -34,8 +46,8 @@ void	print_links(t_room *rooms, int i)
 
 void	print_map(t_lemin *lemin, int count_rooms)
 {
-	int 		i;
 	t_roomlist	*tmp;
+	int			i;
 
 	tmp = lemin->list;
 	ft_putnbr(lemin->count_ants);
@@ -53,4 +65,3 @@ void	print_map(t_lemin *lemin, int count_rooms)
 	}
 	ft_putchar('\n');
 }
-

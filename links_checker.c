@@ -1,9 +1,22 @@
-#include "lem-in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   links_checker.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eblackbu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/29 13:30:01 by eblackbu          #+#    #+#             */
+/*   Updated: 2020/02/29 13:30:53 by eblackbu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-t_room			*set_info_links(t_room *rooms, t_roomlist *list, int count_rooms)
+#include "lem_in.h"
+
+t_room			*set_info_links(t_room *rooms, t_roomlist *list, \
+								int count_rooms)
 {
 	t_roomlist	*tmp;
-	int 		i;
+	int			i;
 
 	i = 0;
 	tmp = list;
@@ -30,11 +43,11 @@ t_room			*init_links(int count_rooms, t_roomlist *map)
 	t_room		*rooms;
 
 	if (!(rooms = (t_room*)malloc(sizeof(t_room) * count_rooms)))
-		exit (-1);
+		exit(-1);
 	return (set_info_links(rooms, map, count_rooms));
 }
 
-int 			set_link(int i, int j, t_room *rooms)
+int				set_link(int i, int j, t_room *rooms)
 {
 	rooms[i].links = add_new_link(rooms[i].links, 1, j);
 	rooms[j].links = add_new_link(rooms[j].links, 1, i);
@@ -43,9 +56,9 @@ int 			set_link(int i, int j, t_room *rooms)
 
 int				check_link(t_lemin **lemin, char *link, int count_rooms)
 {
-	int 		i;
-	int 		j;
-	size_t 		len;
+	int			i;
+	int			j;
+	size_t		len;
 
 	i = 0;
 	if (link[0] == '#' && ft_strcmp(link, "##start") \

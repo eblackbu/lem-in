@@ -1,10 +1,22 @@
-#include "lem-in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validation.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eblackbu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/29 13:45:49 by eblackbu          #+#    #+#             */
+/*   Updated: 2020/02/29 13:46:27 by eblackbu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "lem_in.h"
 
 int				check_ants(void)
 {
 	int			ants;
-	char 		*line;
-	char 		*number;
+	char		*line;
+	char		*number;
 
 	if (get_next_line(0, &line) < 1)
 		error_exit();
@@ -20,15 +32,15 @@ int				check_ants(void)
 	return (ants);
 }
 
-char 			*get_rooms(t_roomlist **map)
+char			*get_rooms(t_roomlist **map)
 {
 	int			start_end;
-	char 		*line;
+	char		*line;
 
 	start_end = 0;
 	line = NULL;
 	if (get_next_line(0, &line) < 1)
-		exit(-1);
+		error_exit();
 	while (check_roomline(line))
 	{
 		if (line[0] == '#')
@@ -56,7 +68,7 @@ t_lemin			*validation(void)
 	lemin->count_ants = check_ants();
 	check_map(&lemin);
 	if (lemin->list)
-		return(lemin);
+		return (lemin);
 	else
 		error_exit();
 }

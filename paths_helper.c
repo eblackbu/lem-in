@@ -1,6 +1,18 @@
-#include "lem-in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   paths_helper.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eblackbu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/29 13:34:46 by eblackbu          #+#    #+#             */
+/*   Updated: 2020/02/29 13:36:11 by eblackbu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int			is_dupl_path(t_path *paths, int count_paths)
+#include "lem_in.h"
+
+int				is_dupl_path(t_path *paths, int count_paths)
 {
 	int		i;
 	int		j;
@@ -11,7 +23,8 @@ int			is_dupl_path(t_path *paths, int count_paths)
 		j = 0;
 		while (j < i)
 		{
-			if (paths[i].roomnum_path[0].roomnum == paths[j].roomnum_path[0].roomnum)
+			if (paths[i].roomnum_path[0].roomnum == \
+					paths[j].roomnum_path[0].roomnum)
 				return (1);
 			j++;
 		}
@@ -20,11 +33,11 @@ int			is_dupl_path(t_path *paths, int count_paths)
 	return (0);
 }
 
-int 		is_better_solution(t_path *paths, int count_paths, \
+int				is_better_solution(t_path *paths, int count_paths, \
 								int count_ants, int *prev_solu)
 {
-	int 	i;
-	int 	new_solu;
+	int		i;
+	int		new_solu;
 
 	i = 0;
 	new_solu = 0;
@@ -35,7 +48,7 @@ int 		is_better_solution(t_path *paths, int count_paths, \
 	}
 	new_solu += count_ants - i;
 	new_solu = new_solu / count_paths;
-	if (new_solu < *prev_solu)
+	if (!is_dupl_path(paths, count_paths) && new_solu < *prev_solu)
 	{
 		*prev_solu = new_solu;
 		return (1);
@@ -43,7 +56,7 @@ int 		is_better_solution(t_path *paths, int count_paths, \
 	return (0);
 }
 
-void		sort_paths(t_path **paths, int count_paths)
+void			sort_paths(t_path **paths, int count_paths)
 {
 	t_path	tmp;
 	int		i;
@@ -78,11 +91,11 @@ void			print_roomname(char *name, int num)
 	ft_putstr(name);
 }
 
-void 			print_paths(t_path *paths, t_room *rooms, int count_paths)
+void			print_paths(t_path *paths, t_room *rooms, int count_paths)
 {
-	int 	i;
+	int		i;
 	int		j;
-	int 	len;
+	int		len;
 
 	i = 0;
 	len = 0;

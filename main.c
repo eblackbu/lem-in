@@ -1,40 +1,16 @@
-#include <stdio.h>
-#include "lem-in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eblackbu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/29 13:32:41 by eblackbu          #+#    #+#             */
+/*   Updated: 2020/02/29 13:33:04 by eblackbu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-/*
-void 			print_links(t_room *rooms, int count_rooms)
-{
-	int i = 0;
-	t_link	*tmp;
-
-	while (i < count_rooms)
-	{
-		tmp = rooms[i].links;
-
-		printf("name=%5s, number=%d bfs=%-10d, distance=%-10d, in_use=%d, ", rooms[i].name, i, rooms[i].bfs_lvl, rooms[i].dist, rooms[i].in_use);
-		if (rooms[i].prev)
-			printf(" prev=%2d, next=%2d, ", rooms[i].prev->number, rooms[i].next->number);
-		else
-			printf("                   ");
-		if (rooms[i].new_prev)
-			printf(" new_prev=%2d, ", rooms[i].new_prev->number);
-		else
-			printf("               ");
-		if (rooms[i].new_next)
-			printf("new_next=%2d, ", rooms[i].new_next->number);
-		else
-			printf("              ");
-		while (tmp)
-		{
-			printf("weight %2d to %d, ", tmp->weight, tmp->roomnum);
-			tmp = tmp->next;
-		}
-		i++;
-		printf("\n");
-	}
-	printf("\n");
-}
-*/
+#include "lem_in.h"
 
 void	error_exit(void)
 {
@@ -45,10 +21,9 @@ void	error_exit(void)
 int		main(int ac, char **av)
 {
 	t_lemin		*lemin;
-	int 		count_rooms;
-	int 		count_paths;
+	int			count_rooms;
+	int			count_paths;
 
-	//freopen("/home/eblackbu/CLionProjects/lem-in/maps/valid/big_sup/map_big_sup_1", "r", stdin);
 	lemin = validation();
 	lemin->paths = get_first_path(lemin, get_count_rooms(lemin->list), 0);
 	count_rooms = get_count_rooms(lemin->list);

@@ -1,9 +1,21 @@
-#include "lem-in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_checker.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eblackbu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/29 13:33:14 by eblackbu          #+#    #+#             */
+/*   Updated: 2020/02/29 13:33:55 by eblackbu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "lem_in.h"
 
 int				get_count_rooms(t_roomlist *roomlist)
 {
-	int 		count;
 	t_roomlist	*tmp;
+	int			count;
 
 	count = 0;
 	tmp = roomlist;
@@ -17,9 +29,9 @@ int				get_count_rooms(t_roomlist *roomlist)
 
 int				check_start_end(t_room *rooms, int count_rooms)
 {
-	int 	i;
+	int		i;
 	int		start_rooms;
-	int 	end_rooms;
+	int		end_rooms;
 
 	i = 0;
 	start_rooms = 0;
@@ -39,7 +51,7 @@ int				check_start_end(t_room *rooms, int count_rooms)
 
 void			get_links(t_lemin **lemin, char *linkline)
 {
-	int 		count_rooms;
+	int			count_rooms;
 
 	count_rooms = get_count_rooms((*lemin)->list);
 	(*lemin)->rooms = init_links(count_rooms, (*lemin)->list);
@@ -55,7 +67,7 @@ void			get_links(t_lemin **lemin, char *linkline)
 
 void			check_map(t_lemin **lemin)
 {
-	char 			*first_link;
+	char		*first_link;
 
 	(*lemin)->list = NULL;
 	if (!(first_link = get_rooms(&(*lemin)->list)))

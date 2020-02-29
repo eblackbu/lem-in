@@ -1,6 +1,18 @@
-#include "lem-in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   suurballe_helper.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eblackbu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/29 13:45:31 by eblackbu          #+#    #+#             */
+/*   Updated: 2020/02/29 13:45:42 by eblackbu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int 		get_len_suur(t_room *rooms, int last_room)
+#include "lem_in.h"
+
+int			get_len_suur(t_room *rooms, int last_room)
 {
 	int		len;
 

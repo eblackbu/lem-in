@@ -1,6 +1,18 @@
-#include "lem-in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   links_helper.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eblackbu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/29 13:31:53 by eblackbu          #+#    #+#             */
+/*   Updated: 2020/02/29 13:32:25 by eblackbu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int 		get_weight_link(t_room *rooms, int room_first, int room_where)
+#include "lem_in.h"
+
+int			get_weight_link(t_room *rooms, int room_first, int room_where)
 {
 	t_link	*tmp;
 
@@ -9,7 +21,7 @@ int 		get_weight_link(t_room *rooms, int room_first, int room_where)
 		tmp = tmp->next;
 	if (!tmp)
 		exit(-1);
-	return(tmp->weight);
+	return (tmp->weight);
 }
 
 t_room		*del_link(t_room *rooms, int room_first, int room_where)
@@ -44,7 +56,7 @@ t_link		*new_link(int weight, int room)
 	return (new);
 }
 
-t_link 		*add_new_link(t_link *links, int weight, int room)
+t_link		*add_new_link(t_link *links, int weight, int room)
 {
 	t_link	*tmp_last;
 	t_link	*tmp_next;
